@@ -10,8 +10,10 @@ class StarterKit
   end
 
   # read eblif file and parse it to build the cubes, ON_SET and DC_SET
-  def read_eblif
-    f = File.open('node2.eblif')
+  def read_eblif(fileName = 'node2.eblif')
+    puts "Opening file #{fileName}"
+    
+    f = File.open(fileName)
     f.each do |line|
       if line.start_with? '.names'
         @number_of_inputs = line.split(' ').size - 2
@@ -20,7 +22,8 @@ class StarterKit
       # puts line.inspect
       cube = line.split(' ')[0]
       output = line.split(' ')[1]
-      # puts "cube: #{cube}"
+            
+      puts "cube: #{cube}"
       # puts "cube_cost: #{cube_cost(cube)}"
 
       if output == '1'
@@ -52,3 +55,16 @@ class StarterKit
     cost += cubes.length + 1 if cubes.length > 1
   end
 end
+
+# Command line Args are put here for now
+# Will be changed later i.e maybe move to a Main.rb file?
+if ARGV.length == 1
+  starterKit = StarterKit.new
+
+  starterKit.read_eblif(ARGV[0])
+
+else
+  puts "Please enter the eblif filename in the command line when you start the application"
+  
+end
+
