@@ -8,6 +8,7 @@ class Algo
   def generate_pi_list
     # write your algo to generate pi_list....
     puts 'generating prime implicants....'
+    puts 'testing commit..'
   end
 
   algo = Algo.new
