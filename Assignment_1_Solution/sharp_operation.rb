@@ -33,6 +33,7 @@ class SharpOperation
       new_results << temp_result
     end
     new_results.inspect
+    new_results
   end
 
   def compliment(d)
@@ -92,4 +93,12 @@ class SharpOperation
   cube_A = 'xxx1'
   cube_B = '110x'
   puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns multiple cubes
+  
+  # test block
+  v1 = sharp.sharp_operation('xxx1','110x')
+  
+  for i in 0...v1.length
+    puts "#{v1[i]}"
+  end  
+  
 end
