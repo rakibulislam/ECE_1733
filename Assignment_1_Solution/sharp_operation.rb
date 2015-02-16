@@ -1,24 +1,14 @@
 require './starter_kit'
 class SharpOperation
   def sharp(d1, d2)
-    if d1 == '0' and d2 == '0'
+    if (d1 == '0' and d2 == '0') || (d1 == '1' and d2 == '1') || (d1 == '0' and d2 == 'x') || (d1 == '1' and d2 == 'x') || (d1 == 'x' and d2 == 'x')
       return 'e'
-    elsif d1 == '0' and d2 == '1'
+    elsif (d1 == '0' and d2 == '1') || (d1 == '1' and d2 == '0')
       return 'n'
-    elsif d1 == '0' and d2 == 'x'
-      return 'e'
-    elsif d1 == '1' and d2 == '0'
-      return 'n'
-    elsif d1 == '1' and d2 == '1'
-      return 'e'
-    elsif d1 == '1' and d2 == 'x'
-      return 'e'
     elsif d1 == 'x' and d2 == '0'
       return '1'
     elsif d1 == 'x' and d2 == '1'
       return '0'
-    elsif d1 == 'x' and d2 == 'x'
-      return 'e'
     end
   end
 
