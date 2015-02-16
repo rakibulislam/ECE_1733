@@ -1,0 +1,42 @@
+Pseudo-code:
+
+High level algorithm:
+
+1. You are given a cover, let's call it C0. Find all the PIs (using the algorithm in lec notes pg 23-24 and 26-29)
+ 
+
+2. From the PIs found in 1, find out which ones are Essential PIs.   (side: need a class/struct that has the PI value and a boolean IsEssential )
+	We would get a list of Es PIs and non-Es PIs. 	
+
+3. Include the Es PIs in the cover. Find out if these Es PIs completely cover the function. :
+	Details:
+	For each minterm in the initial cover C0, do a sharp operation with the Es PIs, similar to  (((m1 # p2) # p3) # p4)
+	If all minterms are included, the Es PIs completely cover the function. So, we are done! (and this is the cheapest cost). Else, go to step 4.
+	
+	Performance note: After the # operation, save the minterms/ parts of minterms that are not covered by the essential PIs. These cubes have to be cover by the 
+	PIs we choose in step 4.
+	
+4. Branching and finding different combination of covers:
+	Details:
+	The Es PIs are included in the cover. Include another PI from the list found in 1. Repeat 3 to find out if this is a complete cover.
+	If this is a complete cover, this is one possible complete cover. Save it to the list of Covers. (which would be used later to find the cost of cover).
+	Repeat this step 4, but choose a different PI. Repeat this process until all the covers are found.
+	
+	If the first PI we chose doesn't completely cover the function, we have to choose another PI from the list, and check again to see if this is a complete cover.
+	
+	We have to repeat this step 4 to find the entire tree structure, and thus all the possible covers for the function.
+	
+	Possible performance note: Once a cover is found, we can calculate its cost. While create a tree structure, if we find a branch is already exceeding this 
+	cost, we can discontinue on that branch and pick the next PI instead.
+	
+
+The following is draft only:	
+* and # operation:
+
+Lec note, pg 23 onwards --- upto pg 24
+1. Given an initial cover
+
+2. Minimize the minterms (using * operation)
+
+2. Find all PIs
+

@@ -17,7 +17,7 @@ class SharpOperation
       return '1'
     elsif d1 == 'x' and d2 == '1'
       return '0'
-    elsif d1 == 'x' and d2 == 'd'
+    elsif d1 == 'x' and d2 == 'x'
       return 'e'
     end
   end
