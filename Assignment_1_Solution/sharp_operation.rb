@@ -22,16 +22,48 @@ class SharpOperation
     end
   end
 
-  def sharp_operation(cube_1, cube_2)
+  def sharp_operation(cube_A, cube_B)
     result = ''
-    # puts cube_1.inspect
-    # puts cube_2.inspect
 
-    (0...cube_1.length).each do |index|
-      # puts sharp(cube_1[index], cube_2[index])
-      result += sharp(cube_1[index], cube_2[index])
+    (0...cube_A.length).each do |index|
+      result += sharp(cube_A[index], cube_B[index])
     end
-    result
+    # return C = A if for some i, Ai # Bi = n (null)
+    return cube_A if result.include? 'n'
+
+    # C = null if for all i, Ai # Bi = e
+    return 'NULL' if all_epsilon?(result)
+
+    differed_indexes = generate_differed_index(cube_A, cube_B)
+
+    new_results = []
+    differed_indexes.each do |index|
+      temp_result = String.new(cube_A)
+      temp_result[index] = compliment(cube_B[index]).to_s
+      new_results << temp_result
+    end
+    new_results.inspect
+  end
+
+  def compliment(d)
+    return 1 if d == '0'
+    return 0 if d == '1'
+  end
+
+  # check if A is fully covered by B
+  def all_epsilon?(result)
+    (0...result.length).each do |index|
+      return false if result[index] != 'e'
+    end
+    true
+  end
+
+  def generate_differed_index(cube_A, cube_B)
+    index = []
+    (0...cube_A.length).each do |i|
+      index << i if cube_A[i] == 'x' && cube_B[i] != 'x'
+    end
+    index
   end
 
   starter_kit = StarterKit.new
@@ -43,12 +75,31 @@ class SharpOperation
   puts "DC_SET: #{starter_kit.dc_set}"
   puts "all cubes: #{starter_kit.cubes}"
   puts "Function cost: #{starter_kit.function_cost(starter_kit.cubes)}"
-  puts '-------------'
-  puts 'Some example sharp operation:'
-  puts
+  puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
+  puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
   sharp = SharpOperation.new
-  puts "#{starter_kit.cubes[0]} # #{starter_kit.cubes[1]}: #{sharp.sharp_operation(starter_kit.cubes[0], starter_kit.cubes[1])}"
-  puts "#{starter_kit.cubes[0]} # #{starter_kit.cubes[2]}: #{sharp.sharp_operation(starter_kit.cubes[0], starter_kit.cubes[2])}"
-  puts "#{starter_kit.cubes[0]} # #{starter_kit.cubes[3]}: #{sharp.sharp_operation(starter_kit.cubes[0], starter_kit.cubes[3])}"
-  puts "#{starter_kit.cubes[1]} # #{starter_kit.cubes[3]}: #{sharp.sharp_operation(starter_kit.cubes[1], starter_kit.cubes[3])}"
+  # case: 1
+  cube_A = '0x0'
+  cube_B = '1x1'
+  puts "Case 1 : #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns cube_A
+
+  # case: 2
+  cube_A = '11x'
+  cube_B = 'x1x'
+  puts "Case 2 : #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns NULL
+
+  # case: 3, example: 1, returns 1 cube
+  cube_A = 'x1x'
+  cube_B = '11x'
+  puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns one cube
+
+  # case: 3, example: 2, returns array of 2 cubes
+  cube_A = 'xx0'
+  cube_B = '11x'
+  puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns multiple cubes
+
+  # case: 3, example: 3, returns array of 3 cubes
+  cube_A = 'xxx1'
+  cube_B = '110x'
+  puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns multiple cubes
 end
