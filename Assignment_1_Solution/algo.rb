@@ -75,5 +75,5 @@ class Algo
   # read eblif file and set the instance variables after parsing the eblif file
   starter_kit.read_eblif
   pi = PrimeImplicant.new
-  pi.generate_prime_implicants(starter_kit.on_set)
+  pi.generate_prime_implicants(starter_kit.cubes)
 end

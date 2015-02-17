@@ -1,4 +1,5 @@
 require './starter_kit'
+
 class SharpOperation
   def sharp(d1, d2)
     if (d1 == '0' and d2 == '0') || (d1 == '1' and d2 == '1') || (d1 == '0' and d2 == 'x') || (d1 == '1' and d2 == 'x') || (d1 == 'x' and d2 == 'x')
@@ -57,48 +58,60 @@ class SharpOperation
     index
   end
 
-  starter_kit = StarterKit.new
-# read eblif file and set the instance variables after parsing the eblif file
-  starter_kit.read_eblif
-  puts "number_of_inputs: #{starter_kit.number_of_inputs}"
-  puts "number_of_cubes: #{starter_kit.number_of_cubes}"
-  puts "ON_SET: #{starter_kit.on_set}"
-  puts "DC_SET: #{starter_kit.dc_set}"
-  puts "all cubes: #{starter_kit.cubes}"
-  puts "Function cost: #{starter_kit.function_cost(starter_kit.cubes)}"
-  puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
-  puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
-  sharp = SharpOperation.new
-  # case: 1
-  cube_A = '0x0'
-  cube_B = '1x1'
-  puts "Case 1 : #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns cube_A
-
-  # case: 2
-  cube_A = '11x'
-  cube_B = 'x1x'
-  puts "Case 2 : #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns NULL
-
-  # case: 3, example: 1, returns 1 cube
-  cube_A = 'x1x'
-  cube_B = '11x'
-  puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns one cube
-
-  # case: 3, example: 2, returns array of 2 cubes
-  cube_A = 'xx0'
-  cube_B = '11x'
-  puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns multiple cubes
-
-  # case: 3, example: 3, returns array of 3 cubes
-  cube_A = 'xxx1'
-  cube_B = '110x'
-  puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns multiple cubes
+#   starter_kit = StarterKit.new
+# # read eblif file and set the instance variables after parsing the eblif file
+#   starter_kit.read_eblif
+#   puts "number_of_inputs: #{starter_kit.number_of_inputs}"
+#   puts "number_of_cubes: #{starter_kit.number_of_cubes}"
+#   puts "ON_SET: #{starter_kit.on_set}"
+#   puts "DC_SET: #{starter_kit.dc_set}"
+#   puts "all cubes: #{starter_kit.cubes}"
+#   puts "Function cost: #{starter_kit.function_cost(starter_kit.cubes)}"
+#   puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
+#   puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
+#   sharp = SharpOperation.new
   
   # test block
-  v1 = sharp.sharp_operation('0x0','01x')
-  
-  for i in 0...v1.length
-    puts "#{v1[i]}"
-  end  
-  
+  # v1 = sharp.sharp_operation('0x0','01x')
+  #
+  # for i in 0...v1.length
+  #   puts "#{v1[i]}"
+  # end
+
+#   starter_kit = StarterKit.new
+# # read eblif file and set the instance variables after parsing the eblif file
+#   starter_kit.read_eblif
+#   puts "number_of_inputs: #{starter_kit.number_of_inputs}"
+#   puts "number_of_cubes: #{starter_kit.number_of_cubes}"
+#   puts "ON_SET: #{starter_kit.on_set}"
+#   puts "DC_SET: #{starter_kit.dc_set}"
+#   puts "all cubes: #{starter_kit.cubes}"
+#   puts "Function cost: #{starter_kit.function_cost(starter_kit.cubes)}"
+#   puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
+#   puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
+#   sharp = SharpOperation.new
+#   # case: 1
+#   cube_A = '0x0'
+#   cube_B = '1x1'
+#   puts "Case 1 : #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns cube_A
+#
+#   # case: 2
+#   cube_A = '11x'
+#   cube_B = 'x1x'
+#   puts "Case 2 : #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns NULL
+#
+#   # case: 3, example: 1, returns 1 cube
+#   cube_A = 'x1x'
+#   cube_B = '11x'
+#   puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns one cube
+#
+#   # case: 3, example: 2, returns array of 2 cubes
+#   cube_A = 'xx0'
+#   cube_B = '11x'
+#   puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns multiple cubes
+#
+#   # case: 3, example: 3, returns array of 3 cubes
+#   cube_A = 'xxx1'
+#   cube_B = '110x'
+#   puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns multiple cubes
 end
