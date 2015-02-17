@@ -31,12 +31,12 @@ class PrimeImplicant
     puts "C0: #{initial_cover}"
     puts "C1: #{next_result_set.uniq}"
     print 'Ck == C(k+1)?: '
-    puts initial_cover == next_result_set
+    puts initial_cover.sort == next_result_set.sort
     puts "- - - - - - - - - - - - - -"
-    if initial_cover == next_result_set
+    if initial_cover.sort == next_result_set.sort
       return next_result_set
     else
-      return generate_prime_implicants(next_result_set)
+      return generate_prime_implicants(next_result_set.uniq)
     end
   end
 
