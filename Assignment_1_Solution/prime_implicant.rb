@@ -24,13 +24,20 @@ class PrimeImplicant
     start_operation_results = start_operation_results + initial_cover # C0 + G1
     start_operation_results = start_operation_results.uniq # remove duplicates
     start_operation_results = start_operation_results - ['NULL'] # remove NULLs
-    puts "-------"
-    puts "start_operation_results: #{start_operation_results.inspect}"
+
+    puts "start_operation_results: #{start_operation_results}"
     next_result_set = remove_redundant_cubes(start_operation_results) # remove redundant cubes, outcome is C1 = C0 + G1 - duplicates - redundant cubes
-    puts "next_result_set: #{next_result_set.inspect}"
-    puts "C0: #{initial_cover.inspect}"
-    puts "C1: #{next_result_set.uniq.inspect}"
+    puts "next_result_set: #{next_result_set}"
+    puts "C0: #{initial_cover}"
+    puts "C1: #{next_result_set.uniq}"
+    print 'Ck == C(k+1)?: '
     puts initial_cover == next_result_set
+    puts "- - - - - - - - - - - - - -"
+    if initial_cover == next_result_set
+      return next_result_set
+    else
+      return generate_prime_implicants(next_result_set)
+    end
   end
 
   def remove_redundant_cubes(start_operation_results)
