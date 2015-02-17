@@ -40,26 +40,25 @@ class StarOperation
     
     result
   end
-
-  starter_kit = StarterKit.new
-# read eblif file and set the instance variables after parsing the eblif file
-  starter_kit.read_eblif
-  puts "number_of_inputs: #{starter_kit.number_of_inputs}"
-  puts "number_of_cubes: #{starter_kit.number_of_cubes}"
-  puts "ON_SET: #{starter_kit.on_set}"
-  puts "DC_SET: #{starter_kit.dc_set}"
-  puts "all cubes: #{starter_kit.cubes}"
-  puts "Function cost: #{starter_kit.function_cost(starter_kit.cubes)}"
-  puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
-  puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
-  star = StarOperation.new
-  puts "#{starter_kit.cubes[0]} * #{starter_kit.cubes[1]}: #{star.star_operation(starter_kit.cubes[0], starter_kit.cubes[1])}"
-
-  cube_A = '0x0'
-  cube_B = '1x1'
-  puts "Example 1: #{cube_A} # #{cube_B} = #{star.star_operation(cube_A, cube_B)}"
-
-  cube_A = '0x0'
-  cube_B = 'x11'
-  puts "Example 2: #{cube_A} # #{cube_B} = #{star.star_operation(cube_A, cube_B)}"
+#   starter_kit = StarterKit.new
+# # read eblif file and set the instance variables after parsing the eblif file
+#   starter_kit.read_eblif
+#   puts "number_of_inputs: #{starter_kit.number_of_inputs}"
+#   puts "number_of_cubes: #{starter_kit.number_of_cubes}"
+#   puts "ON_SET: #{starter_kit.on_set}"
+#   puts "DC_SET: #{starter_kit.dc_set}"
+#   puts "all cubes: #{starter_kit.cubes}"
+#   puts "Function cost: #{starter_kit.function_cost(starter_kit.cubes)}"
+#   puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
+#   puts '- - - - - - - - - - - - - - - - - - - - - - - - - '
+#   star = StarOperation.new
+#   puts "#{starter_kit.cubes[0]} * #{starter_kit.cubes[1]}: #{star.star_operation(starter_kit.cubes[0], starter_kit.cubes[1])}"
+#
+#   cube_A = '0x0'
+#   cube_B = '1x1'
+#   puts "Example 1: #{cube_A} # #{cube_B} = #{star.star_operation(cube_A, cube_B)}"
+#
+#   cube_A = '0x0'
+#   cube_B = 'x11'
+#   puts "Example 2: #{cube_A} # #{cube_B} = #{star.star_operation(cube_A, cube_B)}"
 end

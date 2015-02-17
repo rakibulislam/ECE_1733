@@ -2,6 +2,7 @@ require "./prime_implicant"
 require "./sharp_operation"
 require "./star_operation"
 require "pry"
+require './starter_kit'
 
 class Algo
   attr_accessor :pi_list, :essential_pi_list, :non_essential_pi_list
@@ -10,12 +11,6 @@ class Algo
     @pi_list = []
     @essential_pi_list = []
     @non_essential_pi_list = []
-    
-  end
-
-  def generate_pi_list
-    # write your algo to generate pi_list....
-    puts 'generating prime implicants....'
   end
   
   def calculate_essential_pi_list
@@ -37,7 +32,6 @@ class Algo
   end 
   
   def is_PI_Essential(pi, index)
-    
     temp_result = []
     temp_result.push(pi)
        
@@ -55,27 +49,31 @@ class Algo
           return false # the PI is non-essential since the sharp operation has returned NULL
         end
         
-      end        
-      
+      end
     end
     return true  # the PI is essential
-  end  
-  
-end
+  end
 
   algo = Algo.new
   # algo.generate_pi_list
   algo.calculate_essential_pi_list
-  
+
   puts "This is essential PI list:"
   puts "#{algo.essential_pi_list.inspect}"
   puts "This is non-essential PI list:"
   puts "#{algo.non_essential_pi_list.inspect}"
-  
-  
+  puts 'calculating essential PIs'
 
-  
-  
-  
-  
-  
+  # algo = Algo.new
+  # algo.calculate_essential_pi_list
+
+  # pi.value= '10x0'
+  # pi.isEssentialPI= true
+  # puts "Value of PI: #{pi.value}"
+  # puts "Is PI Essential: #{pi.isEssentialPI}"
+  starter_kit = StarterKit.new
+  # read eblif file and set the instance variables after parsing the eblif file
+  starter_kit.read_eblif
+  pi = PrimeImplicant.new
+  pi.generate_prime_implicants(starter_kit.on_set)
+end
