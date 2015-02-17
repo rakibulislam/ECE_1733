@@ -19,10 +19,10 @@ class SharpOperation
       result += sharp(cube_A[index], cube_B[index])
     end
     # return C = A if for some i, Ai # Bi = n (null)
-    return cube_A if result.include? 'n'
+    return [cube_A] if result.include? 'n'
 
     # C = null if for all i, Ai # Bi = e
-    return 'NULL' if all_epsilon?(result)
+    return ['NULL'] if all_epsilon?(result)
 
     differed_indexes = generate_differed_index(cube_A, cube_B)
 
@@ -33,6 +33,7 @@ class SharpOperation
       new_results << temp_result
     end
     new_results.inspect
+    new_results
   end
 
   def compliment(d)
@@ -92,4 +93,12 @@ class SharpOperation
   cube_A = 'xxx1'
   cube_B = '110x'
   puts "Case 3: #{cube_A} # #{cube_B} = #{sharp.sharp_operation(cube_A, cube_B)}" # returns multiple cubes
+  
+  # test block
+  v1 = sharp.sharp_operation('0x0','01x')
+  
+  for i in 0...v1.length
+    puts "#{v1[i]}"
+  end  
+  
 end
