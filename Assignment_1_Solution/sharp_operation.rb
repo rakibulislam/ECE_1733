@@ -33,7 +33,6 @@ class SharpOperation
       temp_result[index] = compliment(cube_B[index]).to_s
       new_results << temp_result
     end
-    new_results.inspect
     new_results
   end
 

@@ -64,8 +64,8 @@ class Algo
   puts "#{algo.non_essential_pi_list.inspect}"
   puts 'calculating essential PIs'
 
-  # algo = Algo.new
-  # algo.calculate_essential_pi_list
+  algo = Algo.new
+  algo.calculate_essential_pi_list
 
   # pi.value= '10x0'
   # pi.isEssentialPI= true
@@ -81,5 +81,5 @@ class Algo
   puts 'Testing the example from the book: .....'
   cubes = ['0x000', '11010', '00001', '011x1', '101x1', '1x111', 'x0100', '11x00', '01010', '00101']
   prime_implicants = pi.generate_prime_implicants(cubes)
-  puts "prime_implicants: #{prime_implicants}"
+  puts "prime_implicants: #{prime_implicants.uniq}"
 end

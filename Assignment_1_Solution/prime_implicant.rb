@@ -30,13 +30,13 @@ class PrimeImplicant
     puts "next_result_set: #{next_result_set}"
     puts "C0: #{initial_cover}"
     puts "C1: #{next_result_set.uniq}"
-    print 'Ck == C(k+1)?: '
+    print 'C(k) == C(k+1)?: '
     puts initial_cover.sort == next_result_set.sort
     puts "- - - - - - - - - - - - - -"
     if initial_cover.sort == next_result_set.sort
       return next_result_set
     else
-      return generate_prime_implicants(next_result_set.uniq)
+      return generate_prime_implicants(next_result_set)
     end
   end
 
@@ -52,7 +52,7 @@ class PrimeImplicant
   def redundant? (cube, set_of_cubes)
     sharp = SharpOperation.new
     (0...set_of_cubes.length).each do |i|
-      return true if sharp.sharp_operation(cube, set_of_cubes[i]) == 'NULL'
+      return true if sharp.sharp_operation(cube, set_of_cubes[i]) == ['NULL']
     end
     false
   end
