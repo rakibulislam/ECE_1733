@@ -32,6 +32,31 @@ class Algo
     end
   end 
   
+  def does_essential_pi_list_fully_cover_f(initial_minterms)
+    puts "checking if the essential prime implicants fully cover the function"
+    
+    minterms_fully_covered = []
+    minterms_not_fully_covered = []
+    
+    @working_pi_list = @essential_pi_list.clone
+    
+    (0...initial_minterms.length).each do |i|
+      if is_PI_Essential( initial_minterms[i])
+        minterms_not_fully_covered.push( initial_minterms[i])
+      else
+        minterms_fully_covered.push( initial_minterms[i])
+      end
+     end
+     
+    puts "minterms fully covered:" 
+    puts "#{minterms_fully_covered.inspect}" 
+    puts "minterms not fully covered:" 
+    puts "#{minterms_not_fully_covered.inspect}" 
+    
+    return (minterms_not_fully_covered.length == 0)
+    
+  end
+  
   def is_PI_Essential(pi)
     
     temp_result = []
@@ -126,11 +151,29 @@ class Algo
   puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}"
   puts
   algo.pi_list =  ['xx00', '110x', '1x11', '10x0', '11x1','101x']
+  
+  
+  #algo.pi_list =  ['xx00', '110x', '1x11', '10x0', '11x1','101x']
+  
+  # not full coverage pi list
   #algo.pi_list = ['0x0', '01x', 'x11', '1x1']
+  # full coverage pi list
+  algo.pi_list = ['0xx', 'xx1']
   algo.calculate_essential_pi_list
 
   puts "This is essential PI list:"
   puts "#{algo.essential_pi_list.inspect}"
   puts "This is non-essential PI list:"
   puts "#{algo.non_essential_pi_list.inspect}"
+
+  # cover for partial coverage
+  # initial_cover = ['0x0', '011', '010', 'x11', '1x1']
+  # cover for full coverage
+  initial_cover = ['0x0', '011', '010', '001', 'x11', '1x1']
+  
+  if (algo.does_essential_pi_list_fully_cover_f(initial_cover))
+    puts "Essential PIs fully cover the function"
+  else
+    puts "Essential PIs don't fully cover the function. Need to include non-essential PIs for full cover"
+  end
 end
