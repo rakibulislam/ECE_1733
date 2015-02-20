@@ -5,13 +5,16 @@ require 'pry'
 require './starter_kit'
 
 class Algo
-  attr_accessor :pi_list, :essential_pi_list, :non_essential_pi_list
+  attr_accessor :pi_list, :essential_pi_list, :non_essential_pi_list, :initial_cover, :cover_list
 
   def initialize
     @pi_list = []
     @essential_pi_list = []
     @non_essential_pi_list = []
     @working_pi_list = []    
+    @initial_cover = []
+    @all_minterms_added_to_cover = false
+    @cover_list = []
   end
   
   def calculate_essential_pi_list    
@@ -32,6 +35,26 @@ class Algo
     end
   end 
   
+  def does_pi_list_fully_cover_function(minterms, current_cover)
+    
+    minterms_fully_covered = []
+    minterms_not_fully_covered = []
+	
+	@working_pi_list = current_cover.clone
+    
+     (0...minterms.length).each do |i|
+      if is_PI_Essential( minterms[i])
+        minterms_not_fully_covered.push( minterms[i])
+      else
+        minterms_fully_covered.push( minterms[i])
+      end
+     end
+
+    return (minterms_not_fully_covered.length == 0)     
+
+  end
+  
+  # this function should be merged with the function "does_pi_list_fully_cover_function"
   def does_essential_pi_list_fully_cover_f(initial_minterms)
     puts "checking if the essential prime implicants fully cover the function"
     
@@ -108,6 +131,63 @@ class Algo
     end
  end
 
+  def find_all_covers
+    current_cover = essential_pi_list.clone
+    working_set = non_essential_pi_list.clone
+  
+    #(0...non_essential_pi_list.length).each do |i|
+    #while working_set.length > 0
+    # current_cover = essential_pi_list.clone
+    # current_cover.push(working_set.delete_at(i))
+      
+    # check_coverage_recursion(minterms, current_cover, working_set)
+  
+    check_coverage_recursion(initial_cover, current_cover, working_set)
+    
+  end
+
+  def check_coverage_recursion(minterms, current_cover, working_set)
+  
+    #current_cover = [p1, p2]
+    #working_set = [p3, p4, p5]
+    
+    if (working_set.length == 0)
+      # all the minterms have been added to cover
+      
+      unless(@all_minterms_added_to_cover)
+              @cover_list.push(current_cover)
+              @all_minterms_added_to_cover = true
+      end
+      
+      return
+    else		
+      if does_pi_list_fully_cover_function(minterms, current_cover)
+        @cover_list.push(current_cover)
+        return      
+      else
+        original_working_set = working_set.clone
+        
+        original_cover = current_cover.clone
+        
+        (0...original_working_set.length).each do |j|
+          new_cover = original_cover.clone        
+          new_working_set = original_working_set.clone
+          
+          new_cover.push(new_working_set.delete_at(j))
+          # new_cover = [p1, p2, p3]
+          # working set = [p4, p5]
+          
+          check_coverage_recursion(minterms, new_cover, new_working_set)        
+          
+        end
+        return
+        
+      end
+        
+    end
+  
+end
+
   algo = Algo.new
   # algo.generate_pi_list  
 
@@ -153,12 +233,19 @@ class Algo
   algo.pi_list =  ['xx00', '110x', '1x11', '10x0', '11x1','101x']
   
   
+  # cover for partial coverage
+  algo.initial_cover = ['0x0', '011', '010', 'x11', '1x1']
+  #algo.initial_cover = ['xx00', '110x', '1x11', '10x0']
+  # cover for full coverage
+  # algo.initial_cover = ['0x0', '011', '010', '001', 'x11', '1x1']
+  
   #algo.pi_list =  ['xx00', '110x', '1x11', '10x0', '11x1','101x']
   
   # not full coverage pi list
-  #algo.pi_list = ['0x0', '01x', 'x11', '1x1']
+  algo.pi_list = ['0x0', '01x', 'x11', '1x1']
+  #algo.pi_list = ['xx00', '110x', '1x11', '10x0', '11x1', '101x']
   # full coverage pi list
-  algo.pi_list = ['0xx', 'xx1']
+  #algo.pi_list = ['0xx', 'xx1']
   algo.calculate_essential_pi_list
 
   puts "This is essential PI list:"
@@ -171,9 +258,19 @@ class Algo
   # cover for full coverage
   initial_cover = ['0x0', '011', '010', '001', 'x11', '1x1']
   
-  if (algo.does_essential_pi_list_fully_cover_f(initial_cover))
+  
+  if (algo.does_essential_pi_list_fully_cover_f(algo.initial_cover))
     puts "Essential PIs fully cover the function"
   else
     puts "Essential PIs don't fully cover the function. Need to include non-essential PIs for full cover"
+  end 
+  
+  algo.find_all_covers
+  
+  puts "cover list length: #{algo.cover_list.length}"
+  puts "This is the cover list:"
+  
+  (0...algo.cover_list.length).each do |k|
+    puts "#{algo.cover_list[k].inspect}"
   end
 end
