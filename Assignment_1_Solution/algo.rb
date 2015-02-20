@@ -82,4 +82,26 @@ class Algo
   cubes = ['0x000', '11010', '00001', '011x1', '101x1', '1x111', 'x0100', '11x00', '01010', '00101']
   prime_implicants = pi.generate_prime_implicants(cubes)
   puts "prime_implicants: #{prime_implicants.uniq}"
+  puts "- - - - - - - - - - - - - - - -"
+  starter_kit = StarterKit.new
+  puts 'Finding Minimum Cost Cover . . . . . .'
+  puts
+  covers = [['0x000', '11010', '00001'], ['101x1', '1x111', 'x0100'], ['11x00', '01010', '00101'], ['11010', '0x000', '00001'], ['00001', '11010', '0x000']] # will get this from Shah's algorithm
+  puts "array of covers (before removing duplicate covers): #{covers.inspect}"
+  new_covers = []
+  covers.each { |cover| new_covers << cover.sort }
+  new_covers = new_covers.uniq # removing duplicate covers
+  puts "new array of covers (after removing duplicate covers): #{new_covers.inspect}"
+  puts
+  cover_value_hash = Hash.new{|h, k| h[k] = []}
+  new_covers.each do |cover|
+    cover_cost = starter_kit.function_cost(cover)
+    puts "cost of cover #{cover}: #{cover_cost}"
+    cover_value_hash[cover_cost] << cover
+  end
+  puts
+  # puts "cover_value_hash: #{cover_value_hash.inspect}"
+  minimum_cost_cover =  cover_value_hash.sort_by {|key, value| key}
+  puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}"
+  puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}"
 end

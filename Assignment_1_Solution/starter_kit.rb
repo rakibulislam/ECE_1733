@@ -45,7 +45,7 @@ class StarterKit
     cost += 1 if cost > 1
   end
 
-  # cover_cost will be same as function_cost as it takes a set of cubes and returns the toal cost of cubes
+  # cover_cost will be same as function_cost as it takes a set of cubes and returns the total cost of cubes
   def function_cost(cubes)
     cost = 0
     (0...cubes.length).each do |index|
