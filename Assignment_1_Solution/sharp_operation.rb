@@ -15,6 +15,10 @@ class SharpOperation
 
   def sharp_operation(cube_A, cube_B)
     result = ''
+    
+    if (cube_A == 'NULL')
+      return 'NULL'
+    end
 
     (0...cube_A.length).each do |index|
       result += sharp(cube_A[index], cube_B[index])
