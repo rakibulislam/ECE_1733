@@ -1,7 +1,7 @@
-require "./prime_implicant"
-require "./sharp_operation"
-require "./star_operation"
-require "pry"
+require './prime_implicant'
+require './sharp_operation'
+require './star_operation'
+require 'pry'
 require './starter_kit'
 
 class Algo
@@ -18,7 +18,6 @@ class Algo
     @pi_list = Array['0x0', '01x', 'x11', '1x1']
     
     # debug info; should be removed from final version
-    puts ""
     puts 'calculating essential PIs:'   
     
     for i in 0...@pi_list.length   
@@ -27,8 +26,7 @@ class Algo
       else
         @non_essential_pi_list.push( @pi_list[i])
       end
-    end      
-    
+    end
   end 
   
   def is_PI_Essential(pi, index)
@@ -67,25 +65,26 @@ class Algo
   algo = Algo.new
   algo.calculate_essential_pi_list
 
-  # pi.value= '10x0'
-  # pi.isEssentialPI= true
-  # puts "Value of PI: #{pi.value}"
-  # puts "Is PI Essential: #{pi.isEssentialPI}"
-  starter_kit = StarterKit.new
+  # read file from command line
+  print 'Enter a digit for file name (type 1 for node_1, 2 for node_2 etc.): '
+  file_number = gets.chomp
+  file_name = "node#{file_number}.eblif"
+  starter_kit = StarterKit.new(file_name)
   # read eblif file and set the instance variables after parsing the eblif file
   starter_kit.read_eblif
   pi = PrimeImplicant.new
   prime_implicants = pi.generate_prime_implicants(starter_kit.cubes)
   puts "prime_implicants: #{prime_implicants}"
   puts "- - - - - - - - - "
-  puts 'Testing the example from the book: .....'
+  puts 'Testing the example from the book . . . '
   cubes = ['0x000', '11010', '00001', '011x1', '101x1', '1x111', 'x0100', '11x00', '01010', '00101']
   prime_implicants = pi.generate_prime_implicants(cubes)
   puts "prime_implicants: #{prime_implicants.uniq}"
   puts "- - - - - - - - - - - - - - - -"
-  starter_kit = StarterKit.new
-  puts 'Finding Minimum Cost Cover . . . . . .'
+  starter_kit = StarterKit.new(file_name)
+  puts 'Finding Minimum Cost Cover . . .'
   puts
+  # Finding covers costs and minimum cost cover
   covers = [['0x000', '11010', '00001'], ['101x1', '1x111', 'x0100'], ['11x00', '01010', '00101'], ['11010', '0x000', '00001'], ['00001', '11010', '0x000']] # will get this from Shah's algorithm
   puts "array of covers (before removing duplicate covers): #{covers.inspect}"
   new_covers = []
@@ -104,4 +103,5 @@ class Algo
   minimum_cost_cover =  cover_value_hash.sort_by {|key, value| key}
   puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}"
   puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}"
+  puts
 end

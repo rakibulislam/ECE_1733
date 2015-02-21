@@ -10,7 +10,7 @@ class PrimeImplicant
   end
 
   def generate_prime_implicants(initial_cover)
-    puts "given set of implicants: #{initial_cover.inspect}"
+    # puts "given set of implicants: #{initial_cover.inspect}"
     start_operation_results = []
     star = StarOperation.new
 
@@ -25,11 +25,11 @@ class PrimeImplicant
     start_operation_results = start_operation_results.uniq # remove duplicates
     start_operation_results = start_operation_results - ['NULL'] # remove NULLs
 
-    puts "start_operation_results: #{start_operation_results}"
+    # puts "star_operation_results: #{start_operation_results}"
     next_result_set = remove_redundant_cubes(start_operation_results) # remove redundant cubes, outcome is C1 = C0 + G1 - duplicates - redundant cubes
-    puts "next_result_set: #{next_result_set}"
-    puts "C0: #{initial_cover}"
-    puts "C1: #{next_result_set.uniq}"
+    # puts "next_result_set: #{next_result_set}"
+    puts "C(k): #{initial_cover}"
+    puts "C(k+1): #{next_result_set.uniq}"
     print 'C(k) == C(k+1)?: '
     puts initial_cover.sort == next_result_set.sort
     puts "- - - - - - - - - - - - - -"
