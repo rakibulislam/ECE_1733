@@ -240,9 +240,8 @@ end
   puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}"
   puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}"
   puts
-  algo.pi_list =  ['xx00', '110x', '1x11', '10x0', '11x1','101x']
-  
-  
+  # algo.pi_list =  ['xx00', '110x', '1x11', '10x0', '11x1','101x']
+
   # cover for partial coverage
   initial_cover = ['0x0', '011', '010', 'x11', '1x1']
   # on_set = ['000x', 'x111']
