@@ -1,8 +1,6 @@
 require './prime_implicant'
-require './sharp_operation'
-require './star_operation'
 require 'pry'
-require './starter_kit'
+require 'colorize'
 
 class Algo
   attr_accessor :essential_pi_list, :non_essential_pi_list, :cover_list
@@ -19,28 +17,23 @@ class Algo
   end
 
   def calculate_essential_pi_list(current_pi_list)
-      # debug info; should be removed from final version
-      puts 'calculating essential PIs:'
+    categorized_pi_list = []
+    working_pi_list = []
+    (0...current_pi_list.length).each do |i|
 
-     categorized_pi_list = []
-     working_pi_list = []
+      working_pi_list = current_pi_list.clone
+      working_pi_list.delete_at(i)
 
-      (0...current_pi_list.length).each do |i|
-        working_pi_list = current_pi_list.clone
-
-        working_pi_list.delete_at(i)
-
-        if is_PI_Essential( current_pi_list[i], working_pi_list)
-          @essential_pi_list.push( current_pi_list[i])
-        else
-          @non_essential_pi_list.push( current_pi_list[i])
-        end
+      if is_PI_Essential( current_pi_list[i], working_pi_list)
+        @essential_pi_list.push( current_pi_list[i])
+      else
+        @non_essential_pi_list.push( current_pi_list[i])
       end
+    end
 
     categorized_pi_list.push(@essential_pi_list)
     categorized_pi_list.push(@non_essential_pi_list)
-
-    return categorized_pi_list
+    categorized_pi_list
   end
   
   def does_pi_list_fully_cover_function(minterms, current_cover)
@@ -192,8 +185,8 @@ class Algo
 
   def remove_duplicates(cover_list)
     # cover_list = [['0x000', '11010', '00001'], ['101x1', '1x111', 'x0100'], ['11x00', '01010', '00101'], ['11010', '0x000', '00001'], ['00001', '11010', '0x000']] # will get this from Shah's algorithm
-    puts "array of covers (before removing duplicate covers): #{cover_list.inspect}"
-    puts "size of colver_list (before removing duplicates): #{cover_list.length}"
+    # puts "array of covers (before removing duplicate covers): #{cover_list.inspect}"
+    # puts "size of colver_list (before removing duplicates): #{cover_list.length}"
     new_covers = []
     cover_list.each { |cover| new_covers << cover.sort }
     new_covers = new_covers.uniq # removing duplicate covers
@@ -204,21 +197,22 @@ class Algo
 
   def find_minimum_cost_cover(cover_list, file_name)
     starter_kit = StarterKit.new(file_name)
-    puts 'Finding Minimum Cost Cover . . .'
+    puts "\nFinding Minimum Cost Cover . . . "
     new_covers = remove_duplicates(cover_list)
     # Finding covers costs and minimum cost cover
     cover_value_hash = Hash.new{|h, k| h[k] = []}
     new_covers.each do |cover|
       cover_cost = starter_kit.function_cost(cover)
-      puts "cost of cover #{cover}: #{cover_cost}"
+      puts "cost of cover #{cover}: #{cover_cost}".colorize(:light_blue)
       cover_value_hash[cover_cost] << cover
     end
     puts
     # puts "cover_value_hash: #{cover_value_hash.inspect}"
     minimum_cost_cover =  cover_value_hash.sort_by {|key, value| key}
-    puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}"
     puts "minimum_cost_cover length: #{minimum_cost_cover[0][1].length}"
-    puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}"
+    puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}".colorize(:light_blue)
+    puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}".blue.blink
+    puts
     minimum_cost_cover
   end
 end
