@@ -4,7 +4,6 @@ require 'colorize'
 
 class Algo
   attr_accessor :essential_pi_list, :non_essential_pi_list, :cover_list
-
   def initialize
     @pi_list = []
     @essential_pi_list = []
@@ -25,9 +24,9 @@ class Algo
       working_pi_list.delete_at(i)  #removing the current PI since it shouldn't be sharped with itself
 
       if is_PI_Essential( current_pi_list[i], working_pi_list)
-        @essential_pi_list.push( current_pi_list[i])
+      @essential_pi_list.push( current_pi_list[i])
       else
-        @non_essential_pi_list.push( current_pi_list[i])
+      @non_essential_pi_list.push( current_pi_list[i])
       end
     end
 
@@ -35,7 +34,7 @@ class Algo
     categorized_pi_list.push(@non_essential_pi_list)
     categorized_pi_list
   end
-  
+
   def does_pi_list_fully_cover_function(minterms, current_cover)
     minterm_coverage_list = []
     minterm_coverage_list = get_minterm_function_coverage(minterms, current_cover)
@@ -46,27 +45,27 @@ class Algo
 
   # this function calculates if the provided cover completely covers all the minterms/implicants
   def get_minterm_function_coverage(minterms, current_cover)
-      minterms_fully_covered = []
-      minterms_not_fully_covered = []
+    minterms_fully_covered = []
+    minterms_not_fully_covered = []
 
-      minterm_coverage_list = []
+    minterm_coverage_list = []
 
-      working_pi_list = current_cover.clone
+    working_pi_list = current_cover.clone
 
-       (0...minterms.length).each do |i|
+    (0...minterms.length).each do |i|
 
-         if is_PI_Essential( minterms[i], working_pi_list)
-           minterms_not_fully_covered.push( minterms[i])
-         else
-           minterms_fully_covered.push( minterms[i])
-         end
-       end
+      if is_PI_Essential( minterms[i], working_pi_list)
+      minterms_not_fully_covered.push( minterms[i])
+      else
+      minterms_fully_covered.push( minterms[i])
+      end
+    end
 
-     minterm_coverage_list.push(minterms_fully_covered)
-     minterm_coverage_list.push(minterms_not_fully_covered)
+    minterm_coverage_list.push(minterms_fully_covered)
+    minterm_coverage_list.push(minterms_not_fully_covered)
 
-     return minterm_coverage_list
-      #return (minterms_not_fully_covered.length == 0)
+    return minterm_coverage_list
+  #return (minterms_not_fully_covered.length == 0)
   end
 
   def generate_pi_combinations(ess_pi_list, non_ess_pi_list)
@@ -75,21 +74,24 @@ class Algo
     pi_list = non_ess_pi_list
     puts "pi_list length: #{pi_list.length}"
     pi_combinations = []
+    
+    pi_combinations.push(ess_pi_list)  # only the essential PIs list a possible combination    
+    
+    # Adding non-essentials PIs with the essential PI list to generate other possible combination of covers
     (1..pi_list.length).each do |i|
-      # puts "i: #{i}"
-      # puts pi_list.combination(i).to_a.inspect
+    # puts "i: #{i}"
+    # puts pi_list.combination(i).to_a.inspect
       pi_list.combination(i).to_a.each { |a| pi_combinations << a + ess_pi_list }
     end
 
-    (1..ess_pi_list.length).each do |i|
-      ess_pi_list.combination(i).to_a.each { |a| pi_combinations << a }
-    end
-    
-    # pi_combinations.push(ess_pi_list)
+    # (1..ess_pi_list.length).each do |i|
+      # ess_pi_list.combination(i).to_a.each { |a| pi_combinations << a }
+    # end
+   
     puts "pi_combinations size: #{pi_combinations.length}"
     pi_combinations
   end
-    
+
   def is_PI_Essential(pi, working_pi_list)
     is_essential = false
     working_pi_list_index = 0
@@ -109,7 +111,7 @@ class Algo
     else
 
       if( result == 'NULL')
-        return false;
+      return false;
       else
         new_result = sharp.sharp_operation(result, working_pi_list[current_index])
         (0...new_result.length).each do |i|
@@ -117,7 +119,7 @@ class Algo
             is_essential = is_essential || chain_sharp(new_result[i], current_index + 1, working_pi_list)
           end
         end
-        return is_essential
+      return is_essential
       end
     end
   end
@@ -125,27 +127,27 @@ class Algo
   def find_all_covers(initial_cover, essential_pi_list, non_essential_pi_list)
     current_cover = essential_pi_list.clone
     working_set = non_essential_pi_list.clone
-	  @cover_list.clear
-	  
-	  check_coverage_combinations(initial_cover, essential_pi_list, non_essential_pi_list)
+    @cover_list.clear
+
+    check_coverage_combinations(initial_cover, essential_pi_list, non_essential_pi_list)
     #check_coverage_recursion(initial_cover, current_cover, working_set)
-    
-	  return @cover_list
+
+    return @cover_list
   end
-  
+
   def check_coverage_combinations(minterms, essential_pi_list, non_essential_pi_list)
     possible_covers = generate_pi_combinations(essential_pi_list, non_essential_pi_list)
-    
+
     #possible_covers.push(essential_pi_list)
-    
-     (0...possible_covers.length).each do |i|
-       #current_cover = essential_pi_list + possible_covers[i]
-       current_cover = possible_covers[i]
+
+    (0...possible_covers.length).each do |i|
+    #current_cover = essential_pi_list + possible_covers[i]
+      current_cover = possible_covers[i]
       if does_pi_list_fully_cover_function(minterms, current_cover)
-        @cover_list.push(possible_covers[i])
+      @cover_list.push(possible_covers[i])
       end
 
-     end
+    end
   end
 
   def check_coverage_recursion(minterms, current_cover, working_set)
@@ -153,32 +155,32 @@ class Algo
     #working_set = [p3, p4, p5]
     if (working_set.length == 0)
       # all the minterms have been added to cover
-      
+
       unless(@all_minterms_added_to_cover)
         @cover_list.push(current_cover)
         @all_minterms_added_to_cover = true
       end
-      
+
+    return
+    else
+      if does_pi_list_fully_cover_function(minterms, current_cover)
+      @cover_list.push(current_cover)
+      # @cover_list = remove_duplicates(@cover_list)
       return
-    else		
-      if does_pi_list_fully_cover_function(minterms, current_cover)        
-        @cover_list.push(current_cover)
-        # @cover_list = remove_duplicates(@cover_list)
-        return      
       else
         original_working_set = working_set.clone
         original_cover = current_cover.clone
-        
+
         (0...original_working_set.length).each do |j|
-          new_cover = original_cover.clone        
+          new_cover = original_cover.clone
           new_working_set = original_working_set.clone
-          
+
           new_cover.push(new_working_set.delete_at(j))
           # new_cover = [p1, p2, p3]
           # working set = [p4, p5]
           check_coverage_recursion(minterms, new_cover, new_working_set)
         end
-        return
+      return
       end
     end
   end
