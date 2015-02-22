@@ -149,18 +149,23 @@ class Algo
     end
   end
 
-  def find_minimum_cost_cover(cover_list, file_name)
-    starter_kit = StarterKit.new(file_name)
-    puts 'Finding Minimum Cost Cover . . .'
-    puts
-    # Finding covers costs and minimum cost cover
-    # covers = [['0x000', '11010', '00001'], ['101x1', '1x111', 'x0100'], ['11x00', '01010', '00101'], ['11010', '0x000', '00001'], ['00001', '11010', '0x000']] # will get this from Shah's algorithm
+  def remove_duplicates(cover_list)
+    # cover_list = [['0x000', '11010', '00001'], ['101x1', '1x111', 'x0100'], ['11x00', '01010', '00101'], ['11010', '0x000', '00001'], ['00001', '11010', '0x000']] # will get this from Shah's algorithm
     puts "array of covers (before removing duplicate covers): #{cover_list.inspect}"
+    puts "size of colver_list (before removing duplicates): #{cover_list.length}"
     new_covers = []
     cover_list.each { |cover| new_covers << cover.sort }
     new_covers = new_covers.uniq # removing duplicate covers
     puts "new array of covers (after removing duplicate covers): #{new_covers.inspect}"
-    puts
+    puts "size of colver_list (after removing duplicate covers): #{new_covers.length}"
+    new_covers # returns the covers after removing duplicates
+  end
+
+  def find_minimum_cost_cover(cover_list, file_name)
+    starter_kit = StarterKit.new(file_name)
+    puts 'Finding Minimum Cost Cover . . .'
+    new_covers = remove_duplicates(cover_list)
+    # Finding covers costs and minimum cost cover
     cover_value_hash = Hash.new{|h, k| h[k] = []}
     new_covers.each do |cover|
       cover_cost = starter_kit.function_cost(cover)
@@ -194,6 +199,7 @@ class Algo
   puts "prime_implicants: #{prime_implicants.uniq}"
   # cover for partial coverage
   initial_cover = ['0x0', '011', '010', 'x11', '1x1']
+  # initial_cover = cubes
   
   pi_list = pi.generate_prime_implicants(initial_cover) #dc set should be regarded properly
   
