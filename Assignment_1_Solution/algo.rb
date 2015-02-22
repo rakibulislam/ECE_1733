@@ -87,8 +87,12 @@ class Algo
       # puts pi_list.combination(i).to_a.inspect
       pi_list.combination(i).to_a.each { |a| pi_combinations << a + ess_pi_list }
     end
+
+    (1..ess_pi_list.length).each do |i|
+      ess_pi_list.combination(i).to_a.each { |a| pi_combinations << a }
+    end
     
-    pi_combinations.push(ess_pi_list)
+    # pi_combinations.push(ess_pi_list)
     puts "pi_combinations size: #{pi_combinations.length}"
     pi_combinations
   end
