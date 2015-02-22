@@ -191,8 +191,8 @@ class Algo
     new_covers = []
     cover_list.each { |cover| new_covers << cover.sort }
     new_covers = new_covers.uniq # removing duplicate covers
-    puts "new array of covers (after removing duplicate covers): #{new_covers.inspect}"
-    puts "size of colver_list (after removing duplicate covers): #{new_covers.length}"
+    # puts "new array of covers (after removing duplicate covers): #{new_covers.inspect}"
+    # puts "size of colver_list (after removing duplicate covers): #{new_covers.length}"
     new_covers # returns the covers after removing duplicates
   end
 
