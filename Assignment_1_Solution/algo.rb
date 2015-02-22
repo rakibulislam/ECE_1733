@@ -134,7 +134,7 @@ class Algo
   end
   
   def check_coverage_combinations(minterms, essential_pi_list, non_essential_pi_list)
-    possible_covers = generate_pi_combinations([], non_essential_pi_list)
+    possible_covers = generate_pi_combinations(essential_pi_list, non_essential_pi_list)
     
     #possible_covers.push(essential_pi_list)
     
@@ -209,6 +209,7 @@ class Algo
     puts
     # puts "cover_value_hash: #{cover_value_hash.inspect}"
     minimum_cost_cover =  cover_value_hash.sort_by {|key, value| key}
+    puts "minimum_cost_cover: #{minimum_cost_cover.inspect}"
     puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}"
     puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}"
     puts
