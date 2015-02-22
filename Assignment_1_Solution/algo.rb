@@ -80,10 +80,12 @@ class Algo
     pi_list = ess_pi_list + non_ess_pi_list
     pi_combinations = []
     (1..pi_list.length).each do |i|
-      puts "i: #{i}"
-      puts pi_list.combination(i).to_a.inspect
-      pi_combinations<< pi_list.combination(i).to_a
+      # puts "i: #{i}"
+      # puts pi_list.combination(i).to_a.inspect
+      pi_combinations.push(pi_list.combination(i).to_a[0])
     end
+    
+    pi_combinations.push(ess_pi_list)
     puts "pi_combinations size: #{pi_combinations.length}"
     pi_combinations
   end
@@ -134,10 +136,11 @@ class Algo
   def check_coverage_combinations(minterms, essential_pi_list, non_essential_pi_list)
     possible_covers = generate_pi_combinations([], non_essential_pi_list)
     
-    possible_covers.push(essential_pi_list)
+    #possible_covers.push(essential_pi_list)
     
      (0...possible_covers.length).each do |i|
-       current_cover = essential_pi_list + possible_covers[i]
+       #current_cover = essential_pi_list + possible_covers[i]
+       current_cover = possible_covers[i]
       if does_pi_list_fully_cover_function(minterms, current_cover)
         @cover_list.push(possible_covers[i])
       end
