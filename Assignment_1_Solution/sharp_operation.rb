@@ -17,7 +17,7 @@ class SharpOperation
     result = ''
     
     if (cube_A == 'NULL')
-      return 'NULL'
+      return ['NULL']
     end
 
     (0...cube_A.length).each do |index|

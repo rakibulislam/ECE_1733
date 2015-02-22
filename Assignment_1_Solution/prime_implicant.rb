@@ -50,4 +50,14 @@ class PrimeImplicant
     end
     false
   end
+
+  def generate_final_prime_implicants(on_set, dc_set)
+    pi = generate_prime_implicants(on_set + dc_set)
+    algo = Algo.new
+    new_pis = []
+    pi.each do |p|
+      new_pis << p if algo.is_PI_Essential(p, dc_set)
+    end
+    new_pis
+  end
 end
