@@ -208,12 +208,11 @@ class Algo
       cover_value_hash[cover_cost] << cover
     end
     puts
-    # puts "cover_value_hash: #{cover_value_hash.inspect}"
+    puts "cover_value_hash: #{cover_value_hash.inspect}"
     minimum_cost_cover =  cover_value_hash.sort_by {|key, value| key}
-    puts "minimum_cost_cover: #{minimum_cost_cover.inspect}"
     puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}"
+    puts "minimum_cost_cover length: #{minimum_cost_cover[0][1].length}"
     puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}"
-    puts
     minimum_cost_cover
   end
 end
