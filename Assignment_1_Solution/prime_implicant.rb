@@ -2,12 +2,6 @@ require './star_operation'
 require './sharp_operation'
 
 class PrimeImplicant
-  attr_accessor :value, :isEssentialPI
-  
-  def initialize
-    @value = ''
-    @isEssentialPI = false
-  end
 
   def generate_prime_implicants(initial_cover)
     # puts "given set of implicants: #{initial_cover.inspect}"

@@ -11,162 +11,119 @@ class Algo
     @pi_list = []
     @essential_pi_list = []
     @non_essential_pi_list = []
-    @working_pi_list = []    
+    @working_pi_list = []
     @initial_cover = []
     @all_minterms_added_to_cover = false
     @cover_list = []
   end
-  
-  def calculate_essential_pi_list(current_pi_list)    
-    
-    # debug info; should be removed from final version
-    puts 'calculating essential PIs:'   
-	
-	categorized_pi_list = []
-	working_pi_list = []
-    
-    (0...current_pi_list.length).each do |i|  
-      working_pi_list = current_pi_list.clone
-      
-      working_pi_list.delete_at(i)
-      
-      if is_PI_Essential( current_pi_list[i], working_pi_list)
-        @essential_pi_list.push( current_pi_list[i])
-      else
-        @non_essential_pi_list.push( current_pi_list[i])
+
+  def calculate_essential_pi_list(current_pi_list)
+      # debug info; should be removed from final version
+      puts 'calculating essential PIs:'
+
+     categorized_pi_list = []
+     working_pi_list = []
+
+      (0...current_pi_list.length).each do |i|
+        working_pi_list = current_pi_list.clone
+
+        working_pi_list.delete_at(i)
+
+        if is_PI_Essential( current_pi_list[i], working_pi_list)
+          @essential_pi_list.push( current_pi_list[i])
+        else
+          @non_essential_pi_list.push( current_pi_list[i])
+        end
       end
-    end      
-	
-	categorized_pi_list.push(@essential_pi_list)
-	categorized_pi_list.push(@non_essential_pi_list)
-	
-	return categorized_pi_list
-  end 
-  
-  def does_pi_list_fully_cover_function(minterms, current_cover)
-	minterm_coverage_list = []
-	
-	minterm_coverage_list = get_minterm_function_coverage(minterms, current_cover)	
-	
-	# the first element contains minterms fully covered
-	# the second element contains minterms not fully covered
-	
-	return (minterm_coverage_list[1].length == 0)  
-	
+
+    categorized_pi_list.push(@essential_pi_list)
+    categorized_pi_list.push(@non_essential_pi_list)
+
+    return categorized_pi_list
   end
   
+  def does_pi_list_fully_cover_function(minterms, current_cover)
+    minterm_coverage_list = []
+    minterm_coverage_list = get_minterm_function_coverage(minterms, current_cover)
+    # the first element contains minterms fully covered
+    # the second element contains minterms not fully covered
+    return (minterm_coverage_list[1].length == 0)
+  end
+
   # this function calculates if the provided cover completely covers all the minterms/implicants
   def get_minterm_function_coverage(minterms, current_cover)
-    
-    minterms_fully_covered = []
-    minterms_not_fully_covered = []
-	
-	minterm_coverage_list = []
-	
-	working_pi_list = current_cover.clone
-    
-     (0...minterms.length).each do |i|
-      if is_PI_Essential( minterms[i], working_pi_list)
-        minterms_not_fully_covered.push( minterms[i])
-      else
-        minterms_fully_covered.push( minterms[i])
-      end
-     end
-	 
-	 minterm_coverage_list.push(minterms_fully_covered)
-	 minterm_coverage_list.push(minterms_not_fully_covered)	 
+      minterms_fully_covered = []
+      minterms_not_fully_covered = []
 
-	 return minterm_coverage_list
-    #return (minterms_not_fully_covered.length == 0)     
+      minterm_coverage_list = []
 
+      working_pi_list = current_cover.clone
+
+       (0...minterms.length).each do |i|
+
+         if is_PI_Essential( minterms[i], working_pi_list)
+           minterms_not_fully_covered.push( minterms[i])
+         else
+           minterms_fully_covered.push( minterms[i])
+         end
+       end
+
+     minterm_coverage_list.push(minterms_fully_covered)
+     minterm_coverage_list.push(minterms_not_fully_covered)
+
+     return minterm_coverage_list
+      #return (minterms_not_fully_covered.length == 0)
   end
     
   def is_PI_Essential(pi, working_pi_list)
-    
-    #temp_result = []
-    #temp_result.push(pi)
-       
-    is_essential = false    
-    working_pi_list_index = 0       
-    
-	#temp_result.push(pi);
-	
-	is_essential = chain_sharp(pi, working_pi_list_index, working_pi_list)
-	
-	# sharp = SharpOperation.new   
-      
-        ## doing the first sharp operation
-        
-        # temp_result = sharp.sharp_operation(pi, working_pi_list[working_pi_list_index]);
-  
-        # (0...temp_result.length).each do |j|        
-          # is_essential = is_essential || chain_sharp(temp_result[j] ,working_pi_list_index + 1, working_pi_list)
-        # end
-        
-        return is_essential 
+    is_essential = false
+    working_pi_list_index = 0
+    is_essential = chain_sharp(pi, working_pi_list_index, working_pi_list)
+    return is_essential
   end
-  
-  def chain_sharp(result, current_index, working_pi_list )
 
+  def chain_sharp(result, current_index, working_pi_list )
     is_essential = false
     new_result = []
-    sharp = SharpOperation.new  
-    
-    if (current_index >= working_pi_list.length)    
-      
-      # iteration done      
-      return ( result != 'NULL')        
+    sharp = SharpOperation.new
+
+    if (current_index >= working_pi_list.length)
+
+      # iteration done
+      return ( result != 'NULL')
     else
-    
+
       if( result == 'NULL')
         return false;
       else
         new_result = sharp.sharp_operation(result, working_pi_list[current_index])
-        
-        (0...new_result.length).each do |i|        
+        (0...new_result.length).each do |i|
           if new_result[i] != 'NULL'
-            
             is_essential = is_essential || chain_sharp(new_result[i], current_index + 1, working_pi_list)
-            
           end
         end
-        
         return is_essential
-        
-      end    
+      end
     end
- end
+  end
 
   def find_all_covers(initial_cover, essential_pi_list, non_essential_pi_list)
     current_cover = essential_pi_list.clone
     working_set = non_essential_pi_list.clone
-	
-	@cover_list.clear
-  
-    #(0...non_essential_pi_list.length).each do |i|
-    #while working_set.length > 0
-    # current_cover = essential_pi_list.clone
-    # current_cover.push(working_set.delete_at(i))
-      
-    # check_coverage_recursion(minterms, current_cover, working_set)
-  
+	  @cover_list.clear
     check_coverage_recursion(initial_cover, current_cover, working_set)
-	
-	return @cover_list
-    
+	  return @cover_list
   end
 
   def check_coverage_recursion(minterms, current_cover, working_set)
-  
     #current_cover = [p1, p2]
     #working_set = [p3, p4, p5]
-    
     if (working_set.length == 0)
       # all the minterms have been added to cover
       
       unless(@all_minterms_added_to_cover)
-              @cover_list.push(current_cover)
-              @all_minterms_added_to_cover = true
+        @cover_list.push(current_cover)
+        @all_minterms_added_to_cover = true
       end
       
       return
@@ -176,7 +133,6 @@ class Algo
         return      
       else
         original_working_set = working_set.clone
-        
         original_cover = current_cover.clone
         
         (0...original_working_set.length).each do |j|
@@ -186,17 +142,12 @@ class Algo
           new_cover.push(new_working_set.delete_at(j))
           # new_cover = [p1, p2, p3]
           # working set = [p4, p5]
-          
-          check_coverage_recursion(minterms, new_cover, new_working_set)        
-          
+          check_coverage_recursion(minterms, new_cover, new_working_set)
         end
         return
-        
       end
-        
     end
-  
-end
+  end
 
   algo = Algo.new
   # algo.generate_pi_list  
@@ -244,30 +195,14 @@ end
 
   # cover for partial coverage
   initial_cover = ['0x0', '011', '010', 'x11', '1x1']
-  # on_set = ['000x', 'x111']
-  # dc_set = ['1x0x']
-  # initial_cover = on_set + dc_set
-  #algo.initial_cover = ['xx00', '110x', '1x11', '10x0']
-  # cover for full coverage
-  # algo.initial_cover = ['0x0', '011', '010', '001', 'x11', '1x1'] 
   
   pi_list = pi.generate_prime_implicants(initial_cover) #dc set should be regarded properly
-  
-  #pi_list.delete('1x0x')  # done temporarily to avoid the bug in prime implicants
   
   puts "Initial Cover :"
   puts "#{initial_cover.inspect}"
   
   puts "Prime Implicant List:"
   puts "#{pi_list.inspect}"
-  
-  #algo.pi_list =  ['xx00', '110x', '1x11', '10x0', '11x1','101x']
-  
-  # not full coverage pi list
-  #pi_list = ['0x0', '01x', 'x11', '1x1']
-  #algo.pi_list = ['xx00', '110x', '1x11', '10x0', '11x1', '101x']
-  # full coverage pi list
-  #algo.pi_list = ['0xx', 'xx1']
   
   categorized_pi_list =  algo.calculate_essential_pi_list(pi_list)
   
@@ -276,10 +211,8 @@ end
 
   puts "This is the essential PI list:"
   puts "#{categorized_pi_list[0].inspect}"
-  #puts "#{algo.essential_pi_list.inspect}"
   puts "This is the non-essential PI list:"
   puts "#{categorized_pi_list[1].inspect}"
-  #puts "#{algo.non_essential_pi_list.inspect}"
 
   puts "checking if the essential prime implicants fully cover the function"  
   minterm_coverage_list = algo.get_minterm_function_coverage(initial_cover, essential_pi_list)
@@ -297,9 +230,7 @@ end
   else
     puts "Essential PIs don't fully cover the function. Need to include non-essential PIs for full cover"
   end 
-  
-  cover_list = []
-  
+
   cover_list = algo.find_all_covers(initial_cover, essential_pi_list, non_essential_pi_list)
 
   puts "Number of covers (including all combinations): #{cover_list.length}"
