@@ -20,6 +20,12 @@ pi = PrimeImplicant.new
 # initial_cover = ['0x0', '011', '010', 'x11', '1x1']
 # initial_cover = cubes
 # initial_cover = starter_kit.on_set
+
+#debugging....incorporate dc set while finding essential PIs
+
+# starter_kit.on_set = ['000x', 'x111']
+# starter_kit.dc_set = ['1x0x']
+
 initial_cover = starter_kit.on_set
 # pi_list = pi.generate_prime_implicants(initial_cover) #dc set should be regarded properly
 pi_list = pi.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_set) #dc set should be regarded properly
@@ -30,7 +36,7 @@ pi_list = pi.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_
 puts "Initial Cover: #{initial_cover.inspect}".colorize(:green)
 puts "Prime Implicants: #{pi_list.inspect}".colorize(:blue)
 
-categorized_pi_list =  algo.calculate_essential_pi_list(pi_list)
+categorized_pi_list =  algo.calculate_essential_pi_list(pi_list, starter_kit.dc_set)
 essential_pi_list = categorized_pi_list[0]
 non_essential_pi_list = categorized_pi_list[1]
 

@@ -16,13 +16,13 @@ class Algo
     @cover_list = []
   end
 
-  def calculate_essential_pi_list(current_pi_list)
+  def calculate_essential_pi_list(current_pi_list, dc_set)
     categorized_pi_list = []
     working_pi_list = []
     (0...current_pi_list.length).each do |i|
 
-      working_pi_list = current_pi_list.clone
-      working_pi_list.delete_at(i)
+      working_pi_list = current_pi_list.clone + dc_set.clone
+      working_pi_list.delete_at(i)  #removing the current PI since it shouldn't be sharped with itself
 
       if is_PI_Essential( current_pi_list[i], working_pi_list)
         @essential_pi_list.push( current_pi_list[i])
