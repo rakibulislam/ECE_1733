@@ -14,6 +14,7 @@ class Algo
     @working_pi_list = []
     @initial_cover = []
     @all_minterms_added_to_cover = false
+    @epi_fully_covers_function = false
     @cover_list = []
   end
 
@@ -79,10 +80,13 @@ class Algo
     pi_list = ess_pi_list + non_ess_pi_list
     pi_combinations = []
     (1..pi_list.length).each do |i|
-      puts "i: #{i}"
-      puts pi_list.combination(i).to_a.inspect
-      pi_combinations<< pi_list.combination(i).to_a
+      # puts "i: #{i}"
+      # puts pi_list.combination(i).to_a.inspect
+      pi_list.combination(i).to_a.each {|a| pi_combinations << a}
+      # pi_combinations.push(pi_list.combination(i).to_a)
     end
+    
+    pi_combinations.push(ess_pi_list)
     puts "pi_combinations size: #{pi_combinations.length}"
     pi_combinations
   end
@@ -123,8 +127,26 @@ class Algo
     current_cover = essential_pi_list.clone
     working_set = non_essential_pi_list.clone
 	  @cover_list.clear
-    check_coverage_recursion(initial_cover, current_cover, working_set)
+	  
+	  check_coverage_combinations(initial_cover, essential_pi_list, non_essential_pi_list)
+    #check_coverage_recursion(initial_cover, current_cover, working_set)
+    
 	  return @cover_list
+  end
+  
+  def check_coverage_combinations(minterms, essential_pi_list, non_essential_pi_list)
+    possible_covers = generate_pi_combinations(essential_pi_list, non_essential_pi_list)
+    
+    #possible_covers.push(essential_pi_list)
+    
+     (0...possible_covers.length).each do |i|
+       #current_cover = essential_pi_list + possible_covers[i]
+       current_cover = possible_covers[i]
+      if does_pi_list_fully_cover_function(minterms, current_cover)
+        @cover_list.push(possible_covers[i])
+      end
+
+     end
   end
 
   def check_coverage_recursion(minterms, current_cover, working_set)
@@ -169,8 +191,8 @@ class Algo
     new_covers = []
     cover_list.each { |cover| new_covers << cover.sort }
     new_covers = new_covers.uniq # removing duplicate covers
-    puts "new array of covers (after removing duplicate covers): #{new_covers.inspect}"
-    puts "size of colver_list (after removing duplicate covers): #{new_covers.length}"
+    # puts "new array of covers (after removing duplicate covers): #{new_covers.inspect}"
+    # puts "size of colver_list (after removing duplicate covers): #{new_covers.length}"
     new_covers # returns the covers after removing duplicates
   end
 
@@ -186,11 +208,11 @@ class Algo
       cover_value_hash[cover_cost] << cover
     end
     puts
-    # puts "cover_value_hash: #{cover_value_hash.inspect}"
+    puts "cover_value_hash: #{cover_value_hash.inspect}"
     minimum_cost_cover =  cover_value_hash.sort_by {|key, value| key}
     puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}"
+    puts "minimum_cost_cover length: #{minimum_cost_cover[0][1].length}"
     puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}"
-    puts
     minimum_cost_cover
   end
 end

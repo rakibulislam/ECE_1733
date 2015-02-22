@@ -71,4 +71,4 @@ minimum_cost_cover = algo.find_minimum_cost_cover(cover_list, file_name)
 
 puts "essential_pi_list: #{essential_pi_list}"
 puts "non-essential_pi_list: #{non_essential_pi_list}"
-puts algo.generate_pi_combinations(essential_pi_list, non_essential_pi_list).inspect
+# algo.generate_pi_combinations(essential_pi_list, non_essential_pi_list).inspect
