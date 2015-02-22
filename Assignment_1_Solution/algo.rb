@@ -82,7 +82,8 @@ class Algo
     (1..pi_list.length).each do |i|
       # puts "i: #{i}"
       # puts pi_list.combination(i).to_a.inspect
-      pi_combinations.push(pi_list.combination(i).to_a[0])
+      pi_list.combination(i).to_a.each {|a| pi_combinations << a}
+      # pi_combinations.push(pi_list.combination(i).to_a)
     end
     
     pi_combinations.push(ess_pi_list)
