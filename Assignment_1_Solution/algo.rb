@@ -128,8 +128,9 @@ class Algo
       
       return
     else		
-      if does_pi_list_fully_cover_function(minterms, current_cover)
+      if does_pi_list_fully_cover_function(minterms, current_cover)        
         @cover_list.push(current_cover)
+        @cover_list = remove_duplicates(@cover_list)
         return      
       else
         original_working_set = working_set.clone
