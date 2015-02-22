@@ -77,13 +77,15 @@ class Algo
   end
 
   def generate_pi_combinations(ess_pi_list, non_ess_pi_list)
-    pi_list = ess_pi_list + non_ess_pi_list
+    # pi_list = ess_pi_list + non_ess_pi_list
+    # we will calculate all possible combinations on non-essential PIs and will add ess. PIs to them
+    pi_list = non_ess_pi_list
+    puts "pi_list length: #{pi_list.length}"
     pi_combinations = []
     (1..pi_list.length).each do |i|
       # puts "i: #{i}"
       # puts pi_list.combination(i).to_a.inspect
-      pi_list.combination(i).to_a.each {|a| pi_combinations << a}
-      # pi_combinations.push(pi_list.combination(i).to_a)
+      pi_list.combination(i).to_a.each { |a| pi_combinations << a + ess_pi_list }
     end
     
     pi_combinations.push(ess_pi_list)
@@ -208,7 +210,7 @@ class Algo
       cover_value_hash[cover_cost] << cover
     end
     puts
-    puts "cover_value_hash: #{cover_value_hash.inspect}"
+    # puts "cover_value_hash: #{cover_value_hash.inspect}"
     minimum_cost_cover =  cover_value_hash.sort_by {|key, value| key}
     puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}"
     puts "minimum_cost_cover length: #{minimum_cost_cover[0][1].length}"
