@@ -165,7 +165,6 @@ class Algo
     else
       if does_pi_list_fully_cover_function(minterms, current_cover)
       @cover_list.push(current_cover)
-      # @cover_list = remove_duplicates(@cover_list)
       return
       else
         original_working_set = working_set.clone
@@ -200,7 +199,8 @@ class Algo
   def find_minimum_cost_cover(cover_list, file_name)
     starter_kit = StarterKit.new(file_name)
     puts "\nFinding Minimum Cost Cover . . . "
-    new_covers = remove_duplicates(cover_list)
+    new_covers = cover_list # with the combination approach, we won't get duplicate covers
+    #new_covers = remove_duplicates(cover_list)
     # Finding covers costs and minimum cost cover
     cover_value_hash = Hash.new{|h, k| h[k] = []}
     new_covers.each do |cover|
