@@ -25,17 +25,17 @@ non_essential_pi_list = categorized_pi_list[1]
 puts "Essential PI List: #{essential_pi_list}".colorize(:blue)
 puts "Non-essential PI List: #{non_essential_pi_list}".colorize(:blue)
 
-puts "checking if the essential prime implicants fully cover the function"
+puts "\nChecking if the essential prime implicants fully cover the function . . . ".colorize(:green)
 minterm_coverage_list = algo.get_minterm_function_coverage(initial_cover, essential_pi_list)
 
 minterms_fully_covered = minterm_coverage_list[0]
 minterms_not_fully_covered = minterm_coverage_list[1]
 
-puts "minterms fully covered: #{minterms_fully_covered.inspect}".colorize(:green)
-puts "minterms not fully covered: #{minterms_not_fully_covered.inspect}".colorize(:green)
+puts "\nMinterms fully covered: #{minterms_fully_covered.inspect}".colorize(:green)
+puts "\nMinterms not fully covered: #{minterms_not_fully_covered.inspect}".colorize(:green)
 
 if (minterms_not_fully_covered.length == 0)  #all the minterms in the initial cover are covered by the essential PIs
-  puts "Essential PIs fully cover the function"
+  puts "\nEssential PIs fully cover the function !".colorize(:blue)
 else
   puts "Essential PIs don't fully cover the function. Need to include non-essential PIs for full cover"
 end
