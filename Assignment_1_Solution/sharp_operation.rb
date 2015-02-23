@@ -1,7 +1,7 @@
 require './starter_kit'
 
 class SharpOperation
-  def sharp(d1, d2)
+  def self.sharp(d1, d2)
     if (d1 == '0' and d2 == '0') || (d1 == '1' and d2 == '1') || (d1 == '0' and d2 == 'x') || (d1 == '1' and d2 == 'x') || (d1 == 'x' and d2 == 'x')
       return 'e'
     elsif (d1 == '0' and d2 == '1') || (d1 == '1' and d2 == '0')
@@ -13,7 +13,7 @@ class SharpOperation
     end
   end
 
-  def sharp_operation(cube_A, cube_B)
+  def self.sharp_operation(cube_A, cube_B)
     result = ''
     
     if (cube_A == 'NULL')
@@ -40,20 +40,20 @@ class SharpOperation
     new_results
   end
 
-  def compliment(d)
+  def self.compliment(d)
     return 1 if d == '0'
     return 0 if d == '1'
   end
 
   # check if A is fully covered by B
-  def all_epsilon?(result)
+  def self.all_epsilon?(result)
     (0...result.length).each do |index|
       return false if result[index] != 'e'
     end
     true
   end
 
-  def generate_differed_index(cube_A, cube_B)
+  def self.generate_differed_index(cube_A, cube_B)
     index = []
     (0...cube_A.length).each do |i|
       index << i if cube_A[i] == 'x' && cube_B[i] != 'x'
