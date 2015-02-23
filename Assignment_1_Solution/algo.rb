@@ -131,16 +131,12 @@ class Algo
 
   def check_coverage_combinations(minterms, essential_pi_list, non_essential_pi_list)
     possible_covers = generate_pi_combinations(essential_pi_list, non_essential_pi_list)
-
-    #possible_covers.push(essential_pi_list)
-
     (0...possible_covers.length).each do |i|
     #current_cover = essential_pi_list + possible_covers[i]
       current_cover = possible_covers[i]
       if does_pi_list_fully_cover_function(minterms, current_cover)
       @cover_list.push(possible_covers[i])
       end
-
     end
   end
 
@@ -179,14 +175,9 @@ class Algo
   end
 
   def remove_duplicates(cover_list)
-    # cover_list = [['0x000', '11010', '00001'], ['101x1', '1x111', 'x0100'], ['11x00', '01010', '00101'], ['11010', '0x000', '00001'], ['00001', '11010', '0x000']] # will get this from Shah's algorithm
-    # puts "array of covers (before removing duplicate covers): #{cover_list.inspect}"
-    # puts "size of colver_list (before removing duplicates): #{cover_list.length}"
     new_covers = []
     cover_list.each { |cover| new_covers << cover.sort }
     new_covers = new_covers.uniq # removing duplicate covers
-    # puts "new array of covers (after removing duplicate covers): #{new_covers.inspect}"
-    # puts "size of colver_list (after removing duplicate covers): #{new_covers.length}"
     new_covers # returns the covers after removing duplicates
   end
 

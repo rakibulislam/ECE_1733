@@ -12,6 +12,7 @@ pi = PrimeImplicant.new
 
 initial_cover = starter_kit.on_set
 # pi_list = pi.generate_prime_implicants(initial_cover) #dc set should be regarded properly
+puts "\nGenerating Prime Implicants . . . ".colorize(:green)
 pi_list = pi.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_set) #dc set should be regarded properly
 
 puts "Initial Cover: #{initial_cover.inspect}".colorize(:green)
@@ -21,8 +22,8 @@ categorized_pi_list =  algo.calculate_essential_pi_list(pi_list, starter_kit.dc_
 essential_pi_list = categorized_pi_list[0]
 non_essential_pi_list = categorized_pi_list[1]
 
-puts "essential_pi_list: #{essential_pi_list}".colorize(:blue)
-puts "non-essential_pi_list: #{non_essential_pi_list}".colorize(:blue)
+puts "Essential PI List: #{essential_pi_list}".colorize(:blue)
+puts "Non-essential PI List: #{non_essential_pi_list}".colorize(:blue)
 
 puts "checking if the essential prime implicants fully cover the function"
 minterm_coverage_list = algo.get_minterm_function_coverage(initial_cover, essential_pi_list)
