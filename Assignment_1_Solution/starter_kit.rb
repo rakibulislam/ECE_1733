@@ -12,7 +12,7 @@ class StarterKit
 
   # read eblif file and parse it to build the cubes, ON_SET and DC_SET
   def read_eblif
-    puts "opening: #{file_name} . . . "
+    puts "\nOpening: #{file_name} . . . ".colorize(:green)
     f = File.open(file_name)
     f.each do |line|
       if line.start_with? '.names'

@@ -19,7 +19,7 @@ class PrimeImplicant
     puts "C(k+1): #{next_result_set.uniq}"
     print 'C(k) == C(k+1)?: '
     puts initial_cover.sort == next_result_set.sort
-    puts "- - - - - - - - - - - - - -"
+    puts "- - - - - - - - - - - - - -".colorize(:yellow)
     if initial_cover.sort == next_result_set.sort
       return next_result_set
     else

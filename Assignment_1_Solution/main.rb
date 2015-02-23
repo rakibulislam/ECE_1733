@@ -2,7 +2,7 @@ require './algo'
 
 algo = Algo.new
 # read file from command line
-print 'Enter a digit for file name (type 1 for node_1, 2 for node_2 etc.): '
+print "\nEnter a digit for file name (type 1 for node_1): ".colorize(:green)
 file_number = gets.chomp
 file_name = "node#{file_number}.eblif"
 starter_kit = StarterKit.new(file_name)
