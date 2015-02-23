@@ -1,7 +1,7 @@
 require './starter_kit'
 
 class StarOperation
-  def star(d1, d2)
+  def self.star(d1, d2)
     if d1 == '0' and d2 == '0'
       return '0'
     elsif d1 == '1' and d2 == '1'
@@ -17,7 +17,7 @@ class StarOperation
     end
   end
 
-  def star_operation(cube_A, cube_B)
+  def self.star_operation(cube_A, cube_B)
     result = ''
     number_of_nulls = 0
 

@@ -6,12 +6,12 @@ class PrimeImplicant
   def generate_prime_implicants(initial_cover)
     # puts "given set of implicants: #{initial_cover.inspect}"
     start_operation_results = []
-    star = StarOperation.new
+    # star = StarOperation.new
 
     (0...initial_cover.length - 1).each do |i|
       (i + 1...initial_cover.length).each do |j|
         # puts "index: #{i}, #{j}"
-        start_operation_results << star.star_operation(initial_cover[i], initial_cover[j])
+        start_operation_results << StarOperation.star_operation(initial_cover[i], initial_cover[j])
         # puts start_operation_results.inspect
       end
     end
@@ -44,9 +44,9 @@ class PrimeImplicant
   end
 
   def redundant? (cube, set_of_cubes)
-    sharp = SharpOperation.new
+    # sharp = SharpOperation.new
     (0...set_of_cubes.length).each do |i|
-      return true if sharp.sharp_operation(cube, set_of_cubes[i]) == ['NULL']
+      return true if SharpOperation.sharp_operation(cube, set_of_cubes[i]) == ['NULL']
     end
     false
   end
