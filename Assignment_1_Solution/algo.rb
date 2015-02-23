@@ -102,8 +102,8 @@ class Algo
   def chain_sharp(result, current_index, working_pi_list )
     is_essential = false
     new_result = []
-    sharp = SharpOperation.new
-
+    # sharp = SharpOperation.new
+    
     if (current_index >= working_pi_list.length)
 
       # iteration done
@@ -113,7 +113,7 @@ class Algo
       if( result == 'NULL')
       return false;
       else
-        new_result = sharp.sharp_operation(result, working_pi_list[current_index])
+        new_result = SharpOperation.sharp_operation(result, working_pi_list[current_index])
         (0...new_result.length).each do |i|
           if new_result[i] != 'NULL'
             is_essential = is_essential || chain_sharp(new_result[i], current_index + 1, working_pi_list)
