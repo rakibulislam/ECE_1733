@@ -20,6 +20,12 @@ pi = PrimeImplicant.new
 # initial_cover = ['0x0', '011', '010', 'x11', '1x1']
 # initial_cover = cubes
 # initial_cover = starter_kit.on_set
+
+#debugging....incorporate dc set while finding essential PIs
+
+# starter_kit.on_set = ['000x', 'x111']
+# starter_kit.dc_set = ['1x0x']
+
 initial_cover = starter_kit.on_set
 # pi_list = pi.generate_prime_implicants(initial_cover) #dc set should be regarded properly
 pi_list = pi.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_set) #dc set should be regarded properly
@@ -27,19 +33,15 @@ pi_list = pi.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_
 # pi_list = pi.generate_final_prime_implicants(['000x', 'x111'], ['1x0x']) #dc set should be regarded properly
 # puts "final_pi_list: #{pi_list.inspect}"
 
-puts "Initial Cover :"
-puts "#{initial_cover.inspect}"
-puts "Prime Implicant List:"
-puts "#{pi_list.inspect}"
+puts "Initial Cover: #{initial_cover.inspect}".colorize(:green)
+puts "Prime Implicants: #{pi_list.inspect}".colorize(:blue)
 
-categorized_pi_list =  algo.calculate_essential_pi_list(pi_list)
+categorized_pi_list =  algo.calculate_essential_pi_list(pi_list, starter_kit.dc_set)
 essential_pi_list = categorized_pi_list[0]
 non_essential_pi_list = categorized_pi_list[1]
 
-puts "This is the essential PI list:"
-puts "#{categorized_pi_list[0].inspect}"
-puts "This is the non-essential PI list:"
-puts "#{categorized_pi_list[1].inspect}"
+puts "essential_pi_list: #{essential_pi_list}".colorize(:blue)
+puts "non-essential_pi_list: #{non_essential_pi_list}".colorize(:blue)
 
 puts "checking if the essential prime implicants fully cover the function"
 minterm_coverage_list = algo.get_minterm_function_coverage(initial_cover, essential_pi_list)
@@ -47,10 +49,8 @@ minterm_coverage_list = algo.get_minterm_function_coverage(initial_cover, essent
 minterms_fully_covered = minterm_coverage_list[0]
 minterms_not_fully_covered = minterm_coverage_list[1]
 
-puts "minterms fully covered:"
-puts "#{minterms_fully_covered.inspect}"
-puts "minterms not fully covered:"
-puts "#{minterms_not_fully_covered.inspect}"
+puts "minterms fully covered: #{minterms_fully_covered.inspect}".colorize(:green)
+puts "minterms not fully covered: #{minterms_not_fully_covered.inspect}".colorize(:green)
 
 if (minterms_not_fully_covered.length == 0)  #all the minterms in the initial cover are covered by the essential PIs
   puts "Essential PIs fully cover the function"
@@ -68,7 +68,4 @@ puts "This is the cover list:"
 end
 
 minimum_cost_cover = algo.find_minimum_cost_cover(cover_list, file_name)
-
-puts "essential_pi_list: #{essential_pi_list}"
-puts "non-essential_pi_list: #{non_essential_pi_list}"
 # algo.generate_pi_combinations(essential_pi_list, non_essential_pi_list).inspect
