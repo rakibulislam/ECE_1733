@@ -72,7 +72,7 @@ class Algo
     # pi_list = ess_pi_list + non_ess_pi_list
     # we will calculate all possible combinations on non-essential PIs and will add ess. PIs to them
     pi_list = non_ess_pi_list
-    puts "pi_list length: #{pi_list.length}"
+    puts "Number of non-essential PIs: #{pi_list.length}"
     pi_combinations = []
     
     pi_combinations.push(ess_pi_list)  # only the essential PIs list a possible combination    
@@ -88,7 +88,7 @@ class Algo
       # ess_pi_list.combination(i).to_a.each { |a| pi_combinations << a }
     # end
    
-    puts "pi_combinations size: #{pi_combinations.length}"
+    puts "Number of potential covers: #{pi_combinations.length}"
     pi_combinations
   end
 
@@ -211,7 +211,7 @@ class Algo
     puts
     # puts "cover_value_hash: #{cover_value_hash.inspect}"
     minimum_cost_cover =  cover_value_hash.sort_by {|key, value| key}
-    puts "minimum_cost_cover length: #{minimum_cost_cover[0][1].length}"
+    puts "Number of minimum cost covers: #{minimum_cost_cover[0][1].length}"
     puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}".colorize(:light_blue)
     puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}".blue.blink
     puts
