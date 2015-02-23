@@ -79,15 +79,9 @@ class Algo
     
     # Adding non-essentials PIs with the essential PI list to generate other possible combination of covers
     (1..pi_list.length).each do |i|
-    # puts "i: #{i}"
-    # puts pi_list.combination(i).to_a.inspect
       pi_list.combination(i).to_a.each { |a| pi_combinations << a + ess_pi_list }
     end
 
-    # (1..ess_pi_list.length).each do |i|
-      # ess_pi_list.combination(i).to_a.each { |a| pi_combinations << a }
-    # end
-   
     puts "Number of potential covers: #{pi_combinations.length}"
     pi_combinations
   end
