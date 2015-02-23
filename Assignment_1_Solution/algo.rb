@@ -207,7 +207,7 @@ class Algo
     minimum_cost_cover =  cover_value_hash.sort_by {|key, value| key}
     puts "Number of minimum cost covers: #{minimum_cost_cover[0][1].length}"
     puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}".colorize(:light_blue)
-    puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}".blue.blink
+    puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}".blue
     puts
     minimum_cost_cover
   end
