@@ -61,20 +61,17 @@ class Algo
   end
 
   def generate_pi_combinations(ess_pi_list, non_ess_pi_list)
-    # pi_list = ess_pi_list + non_ess_pi_list
-    # we will calculate all possible combinations on non-essential PIs and will add ess. PIs to them
     pi_list = non_ess_pi_list
-    puts "Number of non-essential PIs: #{pi_list.length}"
+    puts "\nNumber of non-essential PIs: #{non_ess_pi_list.length}"
+    print "\nFinding Possible Covers using the Branching Algorithm".colorize(:red)
+    puts ' . . . . . . . . . . . . '.colorize(:blue).blink
     pi_combinations = []
-
     pi_combinations.push(ess_pi_list)  # only the essential PIs list a possible combination
 
     # Adding non-essentials PIs with the essential PI list to generate other possible combination of covers
     (1..pi_list.length).each do |i|
       pi_list.combination(i).to_a.each { |a| pi_combinations << a + ess_pi_list }
     end
-
-    puts "Number of potential covers: #{pi_combinations.length}"
     pi_combinations
   end
 
@@ -168,6 +165,7 @@ class Algo
   def find_minimum_cost_cover(cover_list, file_name)
     starter_kit = StarterKit.new(file_name)
     puts "\nFinding Minimum Cost Cover . . . ".colorize(:green)
+    puts
     new_covers = cover_list # with the combination approach, we won't get duplicate covers
     # new_covers = remove_duplicates(cover_list)
     # Finding covers costs and minimum cost cover
@@ -177,12 +175,11 @@ class Algo
       puts "cost of cover #{cover}: #{cover_cost}".colorize(:light_blue)
       cover_value_hash[cover_cost] << cover
     end
-    puts
     # puts "cover_value_hash: #{cover_value_hash.inspect}"
     minimum_cost_cover =  cover_value_hash.sort_by { |key, _value| key }
-    puts "Number of minimum cost covers: #{minimum_cost_cover[0][1].length}"
-    puts "minimum_cost_cover: #{minimum_cost_cover[0][1]}".colorize(:light_blue)
-    puts "cost of minimum_cost_cover: #{minimum_cost_cover[0][0]}".blue
+    puts "\nNumber of Minimum Cost Covers: #{minimum_cost_cover[0][1].length}"
+    puts "Minimum Cost Cover: #{minimum_cost_cover[0][1]}".colorize(:light_blue)
+    puts "Minimum Cost: #{minimum_cost_cover[0][0]}".blue
     puts
     minimum_cost_cover
   end

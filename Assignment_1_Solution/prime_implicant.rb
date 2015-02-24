@@ -13,11 +13,13 @@ class PrimeImplicant
     star_operation_results = star_operation_results.uniq # remove duplicates
     star_operation_results -= ['NULL'] # remove NULLs
 
-    next_result_set = remove_redundant_cubes(star_operation_results) # remove redundant cubes, outcome is C1 = C0 + G1 - duplicates - redundant cubes
+    # remove redundant cubes, outcome is C1 = C0 + G1 - duplicates - redundant cubes
+    next_result_set = remove_redundant_cubes(star_operation_results)
     puts "C(k): #{initial_cover}"
     puts "C(k+1): #{next_result_set.uniq}"
-    print "C(k) == C(k+1)?: #{initial_cover.sort == next_result_set.sort}"
-    puts '- - - - - - - - - - - - - -'.colorize(:yellow)
+    puts "C(k) == C(k+1)?: #{initial_cover.sort == next_result_set.sort}"
+    puts '- - - - - - - - - - - - - - - - -'.colorize(:yellow)
+
     if initial_cover.sort == next_result_set.sort
       return next_result_set
     else
