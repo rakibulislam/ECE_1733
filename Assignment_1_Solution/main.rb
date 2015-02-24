@@ -19,7 +19,7 @@ pi = PrimeImplicant.new
 initial_cover = starter_kit.on_set
 # pi_list = pi.generate_prime_implicants(initial_cover) #dc set should be regarded properly
 puts "\nGenerating Prime Implicants . . . ".colorize(:green)
-pi_list = pi.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_set) #dc set should be regarded properly
+pi_list = pi.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_set) # dc set should be regarded properly
 
 puts "Initial Cover: #{initial_cover.inspect}".colorize(:green)
 puts "Prime Implicants: #{pi_list.inspect}".colorize(:blue)
@@ -40,7 +40,7 @@ minterms_not_fully_covered = minterm_coverage_list[1]
 puts "\nMinterms fully covered: #{minterms_fully_covered.inspect}".colorize(:green)
 puts "\nMinterms not fully covered: #{minterms_not_fully_covered.inspect}".colorize(:green)
 
-if (minterms_not_fully_covered.length == 0)  #all the minterms in the initial cover are covered by the essential PIs
+if (minterms_not_fully_covered.length == 0)  # all the minterms in the initial cover are covered by the essential PIs
   puts "\nEssential PIs fully cover the function !".colorize(:blue)
 else
   puts "Essential PIs don't fully cover the function. Need to include non-essential PIs for full cover"

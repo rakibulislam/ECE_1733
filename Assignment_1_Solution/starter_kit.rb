@@ -2,9 +2,9 @@ class StarterKit
   attr_accessor :on_set, :dc_set, :number_of_inputs, :number_of_cubes, :cubes, :file_name
 
   def initialize(file_name)
-    @on_set = Array.new
-    @dc_set = Array.new
-    @cubes = Array.new
+    @on_set = []
+    @dc_set = []
+    @cubes = []
     @number_of_inputs = 0
     @number_of_cubes = 0
     @file_name = file_name
@@ -12,7 +12,7 @@ class StarterKit
 
   # read eblif file and parse it to build the cubes, ON_SET and DC_SET
   def read_eblif
-    puts "\nOpening: #{file_name} . . . ".colorize(:green)
+    puts "\nProcessing #{file_name} . . . ".colorize(:green)
     f = File.open(file_name)
     f.each do |line|
       if line.start_with? '.names'

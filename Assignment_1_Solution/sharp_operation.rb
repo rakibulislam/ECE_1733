@@ -2,20 +2,20 @@ require './starter_kit'
 
 class SharpOperation
   def self.sharp(d1, d2)
-    if (d1 == '0' and d2 == '0') || (d1 == '1' and d2 == '1') || (d1 == '0' and d2 == 'x') || (d1 == '1' and d2 == 'x') || (d1 == 'x' and d2 == 'x')
+    if (d1 == '0' && d2 == '0') || (d1 == '1' && d2 == '1') || (d1 == '0' && d2 == 'x') || (d1 == '1' && d2 == 'x') || (d1 == 'x' && d2 == 'x')
       return 'e'
-    elsif (d1 == '0' and d2 == '1') || (d1 == '1' and d2 == '0')
+    elsif (d1 == '0' && d2 == '1') || (d1 == '1' && d2 == '0')
       return 'n'
-    elsif d1 == 'x' and d2 == '0'
+    elsif d1 == 'x' && d2 == '0'
       return '1'
-    elsif d1 == 'x' and d2 == '1'
+    elsif d1 == 'x' && d2 == '1'
       return '0'
     end
   end
 
   def self.sharp_operation(cube_A, cube_B)
     result = ''
-    
+
     if (cube_A == 'NULL')
       return ['NULL']
     end
