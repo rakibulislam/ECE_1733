@@ -17,16 +17,14 @@ class Algo
 
   def calculate_essential_pi_list(current_pi_list, dc_set)
     categorized_pi_list = []
-    working_pi_list = []
     (0...current_pi_list.length).each do |i|
-
       working_pi_list = current_pi_list.clone + dc_set.clone
       working_pi_list.delete_at(i)  #removing the current PI since it shouldn't be sharped with itself
 
-      if is_PI_Essential( current_pi_list[i], working_pi_list)
-      @essential_pi_list.push( current_pi_list[i])
+      if pi_essential?( current_pi_list[i], working_pi_list)
+        @essential_pi_list.push(current_pi_list[i])
       else
-      @non_essential_pi_list.push( current_pi_list[i])
+        @non_essential_pi_list.push(current_pi_list[i])
       end
     end
 
@@ -53,11 +51,10 @@ class Algo
     working_pi_list = current_cover.clone
 
     (0...minterms.length).each do |i|
-
-      if is_PI_Essential( minterms[i], working_pi_list)
-      minterms_not_fully_covered.push( minterms[i])
+      if pi_essential?( minterms[i], working_pi_list)
+        minterms_not_fully_covered.push( minterms[i])
       else
-      minterms_fully_covered.push( minterms[i])
+        minterms_fully_covered.push( minterms[i])
       end
     end
 
@@ -86,26 +83,20 @@ class Algo
     pi_combinations
   end
 
-  def is_PI_Essential(pi, working_pi_list)
-    is_essential = false
+  def pi_essential?(pi, working_pi_list)
     working_pi_list_index = 0
     is_essential = chain_sharp(pi, working_pi_list_index, working_pi_list)
-    return is_essential
+    is_essential
   end
 
-  def chain_sharp(result, current_index, working_pi_list )
+  def chain_sharp(result, current_index, working_pi_list)
     is_essential = false
-    new_result = []
-    # sharp = SharpOperation.new
-    
-    if (current_index >= working_pi_list.length)
-
+    if current_index >= working_pi_list.length
       # iteration done
-      return ( result != 'NULL')
+      return result != 'NULL'
     else
-
-      if( result == 'NULL')
-      return false;
+      if result == 'NULL'
+        return false;
       else
         new_result = SharpOperation.sharp_operation(result, working_pi_list[current_index])
         (0...new_result.length).each do |i|
@@ -113,20 +104,18 @@ class Algo
             is_essential = is_essential || chain_sharp(new_result[i], current_index + 1, working_pi_list)
           end
         end
-      return is_essential
+        return is_essential
       end
     end
   end
 
   def find_all_covers(initial_cover, essential_pi_list, non_essential_pi_list)
-    current_cover = essential_pi_list.clone
-    working_set = non_essential_pi_list.clone
+    # current_cover = essential_pi_list.clone
+    # working_set = non_essential_pi_list.clone
     @cover_list.clear
-
     check_coverage_combinations(initial_cover, essential_pi_list, non_essential_pi_list)
     #check_coverage_recursion(initial_cover, current_cover, working_set)
-
-    return @cover_list
+    @cover_list
   end
 
   def check_coverage_combinations(minterms, essential_pi_list, non_essential_pi_list)

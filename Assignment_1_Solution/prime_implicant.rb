@@ -48,7 +48,7 @@ class PrimeImplicant
     algo = Algo.new
     new_pis = []
     pi.each do |p|
-      new_pis << p if algo.is_PI_Essential(p, dc_set)
+      new_pis << p if algo.pi_essential?(p, dc_set)
     end
     new_pis
   end
