@@ -36,7 +36,7 @@ class SharpOperation
     end
     new_results
   end
-  
+
   def self.chain_sharp(result, current_index, working_pi_list)
     is_essential = false
     if current_index >= working_pi_list.length

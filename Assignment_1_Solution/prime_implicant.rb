@@ -2,21 +2,21 @@ require './star_operation'
 require './sharp_operation'
 
 class PrimeImplicant
- def self.generate_final_prime_implicants(on_set, dc_set)
+  def self.generate_final_prime_implicants(on_set, dc_set)
     pi = generate_prime_implicants(on_set + dc_set)
-    
+
     new_pis = []
     pi.each do |p|
       new_pis << p if pi_essential?(p, dc_set)
     end
     new_pis
-  end  
-  
+  end
+
   def self.calculate_essential_pi_list(current_pi_list, dc_set)
     categorized_pi_list = []
     essential_pi_list = []
     non_essential_pi_list = []
-    
+
     (0...current_pi_list.length).each do |i|
       working_pi_list = current_pi_list.clone + dc_set.clone
       working_pi_list.delete_at(i)  # removing the current PI since it shouldn't be sharped with itself
@@ -37,7 +37,7 @@ class PrimeImplicant
     working_pi_list_index = 0
     is_essential = SharpOperation.chain_sharp(pi, working_pi_list_index, working_pi_list)
     is_essential
-  end  
+  end
 
   def self.generate_prime_implicants(initial_cover)
     star_operation_results = []
