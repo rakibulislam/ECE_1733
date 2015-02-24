@@ -130,11 +130,12 @@ class Algo
     # puts "cover_value_hash: #{cover_value_hash.inspect}"
     minimum_cost_cover =  cover_value_hash.sort_by { |key, _value| key }
 
-    puts "\nMinimum Cost Cover(s):"
+    puts "\nMinimum Cost Cover(s): "
+    puts
     (0...minimum_cost_cover[0][1].length).each do |i|
-      puts "#{minimum_cost_cover[0][1][i]}"
+      puts "#{minimum_cost_cover[0][1][i]}".colorize(:red)
     end
-    puts "Number of Minimum Cost Covers: #{minimum_cost_cover[0][1].length}".blue
+    puts "\nNumber of Minimum Cost Covers: #{minimum_cost_cover[0][1].length}".blue
     puts "Minimum Cost: #{minimum_cost_cover[0][0]}".blue
     puts
     minimum_cost_cover
