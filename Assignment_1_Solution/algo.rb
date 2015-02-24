@@ -32,21 +32,18 @@ class Algo
     categorized_pi_list
   end
 
-  def does_pi_list_fully_cover_function(minterms, current_cover)
-    minterm_coverage_list = []
+  def pi_list_fully_cover_function?(minterms, current_cover)
     minterm_coverage_list = get_minterm_function_coverage(minterms, current_cover)
     # the first element contains minterms fully covered
     # the second element contains minterms not fully covered
-    (minterm_coverage_list[1].length == 0)
+    minterm_coverage_list[1].length == 0
   end
 
   # this function calculates if the provided cover completely covers all the minterms/implicants
   def get_minterm_function_coverage(minterms, current_cover)
     minterms_fully_covered = []
     minterms_not_fully_covered = []
-
     minterm_coverage_list = []
-
     working_pi_list = current_cover.clone
 
     (0...minterms.length).each do |i|
@@ -59,7 +56,6 @@ class Algo
 
     minterm_coverage_list.push(minterms_fully_covered)
     minterm_coverage_list.push(minterms_not_fully_covered)
-
     minterm_coverage_list
     # return (minterms_not_fully_covered.length == 0)
   end
@@ -122,7 +118,7 @@ class Algo
     (0...possible_covers.length).each do |i|
       # current_cover = essential_pi_list + possible_covers[i]
       current_cover = possible_covers[i]
-      if does_pi_list_fully_cover_function(minterms, current_cover)
+      if pi_list_fully_cover_function?(minterms, current_cover)
         @cover_list.push(possible_covers[i])
       end
     end
@@ -141,7 +137,7 @@ class Algo
 
       return
     else
-      if does_pi_list_fully_cover_function(minterms, current_cover)
+      if pi_list_fully_cover_function?(minterms, current_cover)
         @cover_list.push(current_cover)
         return
       else

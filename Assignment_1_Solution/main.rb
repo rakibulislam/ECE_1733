@@ -47,6 +47,5 @@ else
 end
 
 cover_list = algo.find_all_covers(initial_cover, essential_pi_list, non_essential_pi_list)
-
-minimum_cost_cover = algo.find_minimum_cost_cover(cover_list, file_name)
+algo.find_minimum_cost_cover(cover_list, file_name)
 # algo.generate_pi_combinations(essential_pi_list, non_essential_pi_list).inspect
