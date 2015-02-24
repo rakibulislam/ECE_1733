@@ -14,17 +14,17 @@ end
 starter_kit = StarterKit.new(file_name)
 # read eblif file and set the instance variables after parsing the eblif file
 starter_kit.read_eblif
-pi = PrimeImplicant.new
+# pi = PrimeImplicant.new
 
 initial_cover = starter_kit.on_set
 puts "\nGenerating Prime Implicants . . . ".colorize(:green)
 puts
-pi_list = pi.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_set)
+pi_list = PrimeImplicant.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_set)
 
 puts "\nInitial Cover: #{initial_cover.inspect}".colorize(:green)
 puts "Prime Implicants: #{pi_list.inspect}".colorize(:blue)
 
-categorized_pi_list =  algo.calculate_essential_pi_list(pi_list, starter_kit.dc_set)
+categorized_pi_list =  PrimeImplicant.calculate_essential_pi_list(pi_list, starter_kit.dc_set)
 essential_pi_list = categorized_pi_list[0]
 non_essential_pi_list = categorized_pi_list[1]
 
@@ -41,9 +41,10 @@ puts "\nMinterms fully covered: #{minterms_fully_covered.inspect}".colorize(:gre
 puts "\nMinterms not fully covered: #{minterms_not_fully_covered.inspect}".colorize(:green)
 
 if (minterms_not_fully_covered.length == 0)  # all the minterms in the initial cover are covered by the essential PIs
-  puts "\nEssential PIs fully cover the function !".colorize(:blue)
+  puts "\nEssential PIs fully cover the function ! So, the Essential PI List would be the minimum cost cover.".colorize(:blue)
+  puts "However, the program would continue finding other possible covers (which won't be the minimum cost cover(s) )...".colorize(:blue)
 else
-  puts "\nEssential PIs don't fully cover the function. Need to include non-essential PIs for full cover"
+  puts "\nEssential PIs don't fully cover the function. So, need to include non-essential PIs for full cover."
 end
 
 cover_list = algo.find_all_covers(initial_cover, essential_pi_list, non_essential_pi_list)

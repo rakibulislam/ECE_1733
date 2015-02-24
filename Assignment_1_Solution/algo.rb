@@ -2,34 +2,12 @@ require './prime_implicant'
 require 'colorize'
 
 class Algo
-  attr_accessor :essential_pi_list, :non_essential_pi_list, :cover_list
+  attr_accessor :cover_list
   def initialize
-    @pi_list = []
-    @essential_pi_list = []
-    @non_essential_pi_list = []
     @working_pi_list = []
-    @initial_cover = []
     @all_minterms_added_to_cover = false
     @epi_fully_covers_function = false
     @cover_list = []
-  end
-
-  def calculate_essential_pi_list(current_pi_list, dc_set)
-    categorized_pi_list = []
-    (0...current_pi_list.length).each do |i|
-      working_pi_list = current_pi_list.clone + dc_set.clone
-      working_pi_list.delete_at(i)  # removing the current PI since it shouldn't be sharped with itself
-
-      if pi_essential?(current_pi_list[i], working_pi_list)
-        @essential_pi_list.push(current_pi_list[i])
-      else
-        @non_essential_pi_list.push(current_pi_list[i])
-      end
-    end
-
-    categorized_pi_list.push(@essential_pi_list)
-    categorized_pi_list.push(@non_essential_pi_list)
-    categorized_pi_list
   end
 
   def pi_list_fully_cover_function?(minterms, current_cover)
@@ -47,7 +25,7 @@ class Algo
     working_pi_list = current_cover.clone
 
     (0...minterms.length).each do |i|
-      if pi_essential?(minterms[i], working_pi_list)
+      if PrimeImplicant.pi_essential?(minterms[i], working_pi_list)
         minterms_not_fully_covered.push(minterms[i])
       else
         minterms_fully_covered.push(minterms[i])
@@ -73,32 +51,6 @@ class Algo
       pi_list.combination(i).to_a.each { |a| pi_combinations << a + ess_pi_list }
     end
     pi_combinations
-  end
-
-  def pi_essential?(pi, working_pi_list)
-    working_pi_list_index = 0
-    is_essential = chain_sharp(pi, working_pi_list_index, working_pi_list)
-    is_essential
-  end
-
-  def chain_sharp(result, current_index, working_pi_list)
-    is_essential = false
-    if current_index >= working_pi_list.length
-      # iteration done
-      return result != 'NULL'
-    else
-      if result == 'NULL'
-        return false
-      else
-        new_result = SharpOperation.sharp_operation(result, working_pi_list[current_index])
-        (0...new_result.length).each do |i|
-          if new_result[i] != 'NULL'
-            is_essential ||= chain_sharp(new_result[i], current_index + 1, working_pi_list)
-          end
-        end
-        return is_essential
-      end
-    end
   end
 
   def find_all_covers(initial_cover, essential_pi_list, non_essential_pi_list)
@@ -164,7 +116,7 @@ class Algo
 
   def find_minimum_cost_cover(cover_list, file_name)
     starter_kit = StarterKit.new(file_name)
-    puts "\nFinding Minimum Cost Cover . . . ".colorize(:green)
+    puts "\nFinding the Minimum Cost Cover(s) . . . ".colorize(:green)
     puts
     new_covers = cover_list # with the combination approach, we won't get duplicate covers
     # new_covers = remove_duplicates(cover_list)
@@ -177,8 +129,12 @@ class Algo
     end
     # puts "cover_value_hash: #{cover_value_hash.inspect}"
     minimum_cost_cover =  cover_value_hash.sort_by { |key, _value| key }
-    puts "\nNumber of Minimum Cost Covers: #{minimum_cost_cover[0][1].length}"
-    puts "Minimum Cost Cover: #{minimum_cost_cover[0][1]}".colorize(:light_blue)
+
+    puts "\nMinimum Cost Cover(s):"
+    (0...minimum_cost_cover[0][1].length).each do |i|
+      puts "#{minimum_cost_cover[0][1][i]}"
+    end
+    puts "Number of Minimum Cost Covers: #{minimum_cost_cover[0][1].length}".blue
     puts "Minimum Cost: #{minimum_cost_cover[0][0]}".blue
     puts
     minimum_cost_cover

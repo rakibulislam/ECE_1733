@@ -37,6 +37,26 @@ class SharpOperation
     new_results
   end
 
+  def self.chain_sharp(result, current_index, working_pi_list)
+    is_essential = false
+    if current_index >= working_pi_list.length
+      # iteration done
+      return result != 'NULL'
+    else
+      if result == 'NULL'
+        return false
+      else
+        new_result = SharpOperation.sharp_operation(result, working_pi_list[current_index])
+        (0...new_result.length).each do |i|
+          if new_result[i] != 'NULL'
+            is_essential ||= chain_sharp(new_result[i], current_index + 1, working_pi_list)
+          end
+        end
+        return is_essential
+      end
+    end
+  end
+
   def self.compliment(d)
     return 1 if d == '0'
     return 0 if d == '1'
