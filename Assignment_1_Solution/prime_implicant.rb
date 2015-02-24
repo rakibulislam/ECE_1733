@@ -2,7 +2,44 @@ require './star_operation'
 require './sharp_operation'
 
 class PrimeImplicant
-  def generate_prime_implicants(initial_cover)
+ def self.generate_final_prime_implicants(on_set, dc_set)
+    pi = generate_prime_implicants(on_set + dc_set)
+    
+    new_pis = []
+    pi.each do |p|
+      new_pis << p if pi_essential?(p, dc_set)
+    end
+    new_pis
+  end  
+  
+  def self.calculate_essential_pi_list(current_pi_list, dc_set)
+    categorized_pi_list = []
+    essential_pi_list = []
+    non_essential_pi_list = []
+    
+    (0...current_pi_list.length).each do |i|
+      working_pi_list = current_pi_list.clone + dc_set.clone
+      working_pi_list.delete_at(i)  # removing the current PI since it shouldn't be sharped with itself
+
+      if pi_essential?(current_pi_list[i], working_pi_list)
+        essential_pi_list.push(current_pi_list[i])
+      else
+        non_essential_pi_list.push(current_pi_list[i])
+      end
+    end
+
+    categorized_pi_list.push(essential_pi_list)
+    categorized_pi_list.push(non_essential_pi_list)
+    categorized_pi_list
+  end
+
+  def self.pi_essential?(pi, working_pi_list)
+    working_pi_list_index = 0
+    is_essential = SharpOperation.chain_sharp(pi, working_pi_list_index, working_pi_list)
+    is_essential
+  end  
+
+  def self.generate_prime_implicants(initial_cover)
     star_operation_results = []
     (0...initial_cover.length - 1).each do |i|
       (i + 1...initial_cover.length).each do |j|
@@ -27,7 +64,7 @@ class PrimeImplicant
     end
   end
 
-  def remove_redundant_cubes(star_operation_results)
+  def self.remove_redundant_cubes(star_operation_results)
     results = []
     star_operation_results.each do |cube|
       set_of_cubes = star_operation_results - [cube]
@@ -36,20 +73,10 @@ class PrimeImplicant
     results # only non-redundant cubes
   end
 
-  def redundant?(cube, set_of_cubes)
+  def self.redundant?(cube, set_of_cubes)
     (0...set_of_cubes.length).each do |i|
       return true if SharpOperation.sharp_operation(cube, set_of_cubes[i]) == ['NULL']
     end
     false
-  end
-
-  def generate_final_prime_implicants(on_set, dc_set)
-    pi = generate_prime_implicants(on_set + dc_set)
-    algo = Algo.new
-    new_pis = []
-    pi.each do |p|
-      new_pis << p if algo.pi_essential?(p, dc_set)
-    end
-    new_pis
   end
 end

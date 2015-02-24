@@ -14,17 +14,17 @@ end
 starter_kit = StarterKit.new(file_name)
 # read eblif file and set the instance variables after parsing the eblif file
 starter_kit.read_eblif
-pi = PrimeImplicant.new
+#pi = PrimeImplicant.new
 
 initial_cover = starter_kit.on_set
 puts "\nGenerating Prime Implicants . . . ".colorize(:green)
 puts
-pi_list = pi.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_set)
+pi_list = PrimeImplicant.generate_final_prime_implicants(starter_kit.on_set, starter_kit.dc_set)
 
 puts "\nInitial Cover: #{initial_cover.inspect}".colorize(:green)
 puts "Prime Implicants: #{pi_list.inspect}".colorize(:blue)
 
-categorized_pi_list =  algo.calculate_essential_pi_list(pi_list, starter_kit.dc_set)
+categorized_pi_list =  PrimeImplicant.calculate_essential_pi_list(pi_list, starter_kit.dc_set)
 essential_pi_list = categorized_pi_list[0]
 non_essential_pi_list = categorized_pi_list[1]
 
