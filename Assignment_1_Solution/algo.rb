@@ -116,7 +116,7 @@ class Algo
 
   def find_minimum_cost_cover(cover_list, file_name)
     starter_kit = StarterKit.new(file_name)
-    puts "\nFinding Minimum Cost Cover . . . ".colorize(:green)
+    puts "\nFinding the Minimum Cost Cover(s) . . . ".colorize(:green)
     puts
     new_covers = cover_list # with the combination approach, we won't get duplicate covers
     # new_covers = remove_duplicates(cover_list)

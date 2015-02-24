@@ -44,7 +44,7 @@ if (minterms_not_fully_covered.length == 0)  # all the minterms in the initial c
   puts "\nEssential PIs fully cover the function ! So, the Essential PI List would be the minimum cost cover.".colorize(:blue)
   puts "However, the program would continue finding other possible covers (which won't be the minimum cost cover(s) )...".colorize(:blue)
 else
-  puts "\nEssential PIs don't fully cover the function. So, need to include non-essential PIs for full cover"
+  puts "\nEssential PIs don't fully cover the function. So, need to include non-essential PIs for full cover."
 end
 
 cover_list = algo.find_all_covers(initial_cover, essential_pi_list, non_essential_pi_list)
