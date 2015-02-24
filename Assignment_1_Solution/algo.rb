@@ -2,13 +2,9 @@ require './prime_implicant'
 require 'colorize'
 
 class Algo
-  attr_accessor :essential_pi_list, :non_essential_pi_list, :cover_list
+  attr_accessor  :cover_list
   def initialize
-    @pi_list = []
-    @essential_pi_list = []
-    @non_essential_pi_list = []
     @working_pi_list = []
-    @initial_cover = []
     @all_minterms_added_to_cover = false
     @epi_fully_covers_function = false
     @cover_list = []
@@ -133,8 +129,12 @@ class Algo
     end
     # puts "cover_value_hash: #{cover_value_hash.inspect}"
     minimum_cost_cover =  cover_value_hash.sort_by { |key, _value| key }
-    puts "\nNumber of Minimum Cost Covers: #{minimum_cost_cover[0][1].length}"
-    puts "Minimum Cost Cover(s): #{minimum_cost_cover[0][1]}".colorize(:light_blue)
+    
+    puts "\nMinimum Cost Cover(s):"
+    (0...minimum_cost_cover[0][1].length).each do |i|
+      puts "#{minimum_cost_cover[0][1][i]}"
+    end    
+    puts "Number of Minimum Cost Covers: #{minimum_cost_cover[0][1].length}".blue
     puts "Minimum Cost: #{minimum_cost_cover[0][0]}".blue
     puts
     minimum_cost_cover

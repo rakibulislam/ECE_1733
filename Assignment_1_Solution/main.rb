@@ -41,9 +41,10 @@ puts "\nMinterms fully covered: #{minterms_fully_covered.inspect}".colorize(:gre
 puts "\nMinterms not fully covered: #{minterms_not_fully_covered.inspect}".colorize(:green)
 
 if (minterms_not_fully_covered.length == 0)  # all the minterms in the initial cover are covered by the essential PIs
-  puts "\nEssential PIs fully cover the function !".colorize(:blue)
+  puts "\nEssential PIs fully cover the function ! So, the Essential PI List would be the minimum cost cover.".colorize(:blue)
+  puts "However, the program would continue finding other possible covers (which won't be the minimum cost cover(s) )...".colorize(:blue)
 else
-  puts "\nEssential PIs don't fully cover the function. Need to include non-essential PIs for full cover"
+  puts "\nEssential PIs don't fully cover the function. So, need to include non-essential PIs for full cover"
 end
 
 cover_list = algo.find_all_covers(initial_cover, essential_pi_list, non_essential_pi_list)
