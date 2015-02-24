@@ -1,10 +1,16 @@
 require './algo'
 
 algo = Algo.new
-# read file from command line
-print "\nEnter a digit for file name (type 1 for node_1): ".colorize(:green)
-file_number = gets.chomp
-file_name = "node#{file_number}.eblif"
+
+if ARGV[0]
+  # give file name as a command line argument
+  file_name = "#{ARGV[0].strip}.eblif"
+else
+  # read file based on command line input
+  print "\nEnter a digit for file name (type 1 for node_1): ".colorize(:blue)
+  file_number = gets.chomp
+  file_name = "node#{file_number}.eblif"
+end
 starter_kit = StarterKit.new(file_name)
 # read eblif file and set the instance variables after parsing the eblif file
 starter_kit.read_eblif
