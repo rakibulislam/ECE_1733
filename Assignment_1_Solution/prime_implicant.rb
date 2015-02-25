@@ -34,7 +34,7 @@ class PrimeImplicant
   end
 
   def self.pi_essential?(pi, working_pi_list)
-    working_pi_list_index = 0
+    working_pi_list_index = 0     
     is_essential = SharpOperation.chain_sharp(pi, working_pi_list_index, working_pi_list)
     is_essential
   end

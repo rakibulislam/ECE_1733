@@ -58,7 +58,7 @@ class SharpOperation
       end
     end
   end
-
+  
   def self.compliment(d)
     return 1 if d == '0'
     return 0 if d == '1'

@@ -11,14 +11,14 @@ class Algo
   end
 
   def pi_list_fully_cover_function?(minterms, current_cover)
-    minterm_coverage_list = get_minterm_function_coverage(minterms, current_cover)
+    minterm_coverage_list = get_minterm_function_coverage(minterms, current_cover,true)
     # the first element contains minterms fully covered
     # the second element contains minterms not fully covered
     minterm_coverage_list[1].length == 0
   end
 
   # this function calculates if the provided cover completely covers all the minterms/implicants
-  def get_minterm_function_coverage(minterms, current_cover)
+  def get_minterm_function_coverage(minterms, current_cover, return_bool)
     minterms_fully_covered = []
     minterms_not_fully_covered = []
     minterm_coverage_list = []
@@ -27,6 +27,9 @@ class Algo
     (0...minterms.length).each do |i|
       if PrimeImplicant.pi_essential?(minterms[i], working_pi_list)
         minterms_not_fully_covered.push(minterms[i])
+        if return_bool
+          break  # at least one minterm found which isn't covered by the current cover
+        end
       else
         minterms_fully_covered.push(minterms[i])
       end
@@ -64,6 +67,7 @@ class Algo
 
   def check_coverage_combinations(minterms, essential_pi_list, non_essential_pi_list)
     possible_covers = generate_pi_combinations(essential_pi_list, non_essential_pi_list)
+    
     (0...possible_covers.length).each do |i|
       # current_cover = essential_pi_list + possible_covers[i]
       current_cover = possible_covers[i]
