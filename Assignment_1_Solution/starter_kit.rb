@@ -12,8 +12,17 @@ class StarterKit
 
   # read eblif file and parse it to build the cubes, ON_SET and DC_SET
   def read_eblif
+    begin
+      f = File.open("./test_nodes/#{file_name}")
+    rescue Exception => e
+      puts "\n#{file_name} Not found!"
+      puts "\nPlease Enter a Valid File Name!".colorize(:red)
+      puts
+      exit
+    end
+
     puts "\nProcessing #{file_name} . . . ".colorize(:green)
-    f = File.open("./test_nodes/#{file_name}")
+
     f.each do |line|
       if line.start_with? '.names'
         @number_of_inputs = line.split(' ').size - 2

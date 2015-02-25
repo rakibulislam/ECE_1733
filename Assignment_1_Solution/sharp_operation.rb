@@ -2,7 +2,9 @@ require './starter_kit'
 
 class SharpOperation
   def self.sharp(d1, d2)
-    if (d1 == '0' && d2 == '0') || (d1 == '1' && d2 == '1') || (d1 == '0' && d2 == 'x') || (d1 == '1' && d2 == 'x') || (d1 == 'x' && d2 == 'x')
+    if (d2 == 'x')
+      return 'e'
+    elsif (d1 == d2) # i.e cases (d1 == '0' && d2 == '0') || (d1 == '1' && d2 == '1') 
       return 'e'
     elsif (d1 == '0' && d2 == '1') || (d1 == '1' && d2 == '0')
       return 'n'
@@ -56,7 +58,7 @@ class SharpOperation
       end
     end
   end
-
+  
   def self.compliment(d)
     return 1 if d == '0'
     return 0 if d == '1'

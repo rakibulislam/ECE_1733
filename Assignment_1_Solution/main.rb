@@ -29,7 +29,7 @@ puts "Essential PI List: #{essential_pi_list}".colorize(:blue)
 puts "Non-essential PI List: #{non_essential_pi_list}".colorize(:blue)
 
 puts "\nChecking if the essential prime implicants fully cover the function . . . ".colorize(:green)
-minterm_coverage_list = algo.get_minterm_function_coverage(initial_cover, essential_pi_list)
+minterm_coverage_list = algo.get_minterm_function_coverage(initial_cover, essential_pi_list, false)
 
 minterms_fully_covered = minterm_coverage_list[0]
 minterms_not_fully_covered = minterm_coverage_list[1]
@@ -45,5 +45,6 @@ else
 end
 
 cover_list = algo.find_all_covers(initial_cover, essential_pi_list, non_essential_pi_list)
+
 puts "\nNumber of potential covers: #{cover_list.length}".colorize(:blue)
 algo.find_minimum_cost_cover(cover_list, file_name)
