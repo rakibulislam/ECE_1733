@@ -11,7 +11,7 @@ class Algo
   end
 
   def pi_list_fully_cover_function?(minterms, current_cover)
-    minterm_coverage_list = get_minterm_function_coverage(minterms, current_cover,true)
+    minterm_coverage_list = get_minterm_function_coverage(minterms, current_cover, true)
     # the first element contains minterms fully covered
     # the second element contains minterms not fully covered
     minterm_coverage_list[1].length == 0
