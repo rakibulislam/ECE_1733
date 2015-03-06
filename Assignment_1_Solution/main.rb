@@ -7,10 +7,16 @@ if ARGV[0]
   file_name = "#{ARGV[0].strip}.eblif"
 else
   # read file based on command line input
-  print "\nEnter a digit for file name (type 1 for node_1): ".colorize(:blue)
+  print "\nEnter a digit for file name (1 for node_1) or enter file name: ".colorize(:blue)
   file_number = gets.chomp
-  file_name = "node#{file_number}.eblif"
+
+  if file_number =~ /^\d+$/
+    file_name = "node#{file_number}.eblif"
+  else
+    file_name = "#{file_number}.eblif"
+  end
 end
+
 starter_kit = StarterKit.new(file_name)
 # read eblif file and set the instance variables after parsing the eblif file
 starter_kit.read_eblif
