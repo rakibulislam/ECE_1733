@@ -7,7 +7,7 @@ if ARGV[0]
   file_name = "#{ARGV[0].strip}.eblif"
 else
   # read file based on command line input
-  print "\nEnter a digit for file name (1 for node_1) or enter file name: ".colorize(:blue)
+  print "\nEnter a digit for file name (1 for node1) or enter file name: ".colorize(:blue)
   file_number = gets.chomp
 
   if file_number =~ /^\d+$/
