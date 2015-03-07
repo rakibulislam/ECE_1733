@@ -1,0 +1,47 @@
+Enter a digit for file name (1 for node1) or enter file name: pg29
+
+Processing pg29.eblif . . . 
+
+Generating Prime Implicants . . . 
+
+C(k): ["0x0", "011", "010", "x11", "1x1"]
+C(k+1): ["01x", "x11", "0x0", "1x1"]
+C(k) == C(k+1)?: false
+- - - - - - - - - - - - - - - - -
+C(k): ["01x", "x11", "0x0", "1x1"]
+C(k+1): ["x11", "01x", "0x0", "1x1"]
+C(k) == C(k+1)?: true
+- - - - - - - - - - - - - - - - -
+
+Initial Cover: ["0x0", "011", "010", "x11", "1x1"]
+Prime Implicants: ["x11", "01x", "0x0", "1x1"]
+Essential PI List: ["0x0", "1x1"]
+Non-essential PI List: ["x11", "01x"]
+
+Checking if the essential prime implicants fully cover the function . . . 
+
+Minterms fully covered: ["0x0", "010", "1x1"]
+
+Minterms not fully covered: ["011", "x11"]
+
+Essential PIs don't fully cover the function. So, need to include non-essential PIs for full cover.
+
+Number of non-essential PIs: 2
+
+Finding Possible Covers using the Branching Algorithm . . . . . . . . . . . . 
+
+Number of potential covers: 3
+
+Finding the Minimum Cost Cover(s) . . . 
+
+cost of cover ["x11", "0x0", "1x1"]: 13
+cost of cover ["01x", "0x0", "1x1"]: 13
+cost of cover ["x11", "01x", "0x0", "1x1"]: 17
+
+Minimum Cost Cover(s): 
+
+["x11", "0x0", "1x1"]
+["01x", "0x0", "1x1"]
+
+Number of Minimum Cost Covers: 2
+Minimum Cost: 13

@@ -1,0 +1,56 @@
+Enter a digit for file name (1 for node1) or enter file name: pg22
+
+Processing pg22.eblif . . . 
+
+Generating Prime Implicants . . . 
+
+C(k): ["xx00", "110x", "1x11", "10x0"]
+C(k+1): ["11x1", "101x", "xx00", "110x", "1x11", "10x0"]
+C(k) == C(k+1)?: false
+- - - - - - - - - - - - - - - - -
+C(k): ["11x1", "101x", "xx00", "110x", "1x11", "10x0"]
+C(k+1): ["1x11", "110x", "10x0", "11x1", "101x", "xx00"]
+C(k) == C(k+1)?: true
+- - - - - - - - - - - - - - - - -
+
+Initial Cover: ["xx00", "110x", "1x11", "10x0"]
+Prime Implicants: ["1x11", "110x", "10x0", "11x1", "101x", "xx00"]
+Essential PI List: ["xx00"]
+Non-essential PI List: ["1x11", "110x", "10x0", "11x1", "101x"]
+
+Checking if the essential prime implicants fully cover the function . . . 
+
+Minterms fully covered: ["xx00"]
+
+Minterms not fully covered: ["110x", "1x11", "10x0"]
+
+Essential PIs don't fully cover the function. So, need to include non-essential PIs for full cover.
+
+Number of non-essential PIs: 5
+
+Finding Possible Covers using the Branching Algorithm . . . . . . . . . . . . 
+
+Number of potential covers: 13
+
+Finding the Minimum Cost Cover(s) . . . 
+
+cost of cover ["11x1", "101x", "xx00"]: 15
+cost of cover ["1x11", "110x", "10x0", "xx00"]: 20
+cost of cover ["1x11", "110x", "101x", "xx00"]: 20
+cost of cover ["1x11", "10x0", "11x1", "xx00"]: 20
+cost of cover ["1x11", "11x1", "101x", "xx00"]: 20
+cost of cover ["110x", "11x1", "101x", "xx00"]: 20
+cost of cover ["10x0", "11x1", "101x", "xx00"]: 20
+cost of cover ["1x11", "110x", "10x0", "11x1", "xx00"]: 25
+cost of cover ["1x11", "110x", "10x0", "101x", "xx00"]: 25
+cost of cover ["1x11", "110x", "11x1", "101x", "xx00"]: 25
+cost of cover ["1x11", "10x0", "11x1", "101x", "xx00"]: 25
+cost of cover ["110x", "10x0", "11x1", "101x", "xx00"]: 25
+cost of cover ["1x11", "110x", "10x0", "11x1", "101x", "xx00"]: 30
+
+Minimum Cost Cover(s): 
+
+["11x1", "101x", "xx00"]
+
+Number of Minimum Cost Covers: 1
+Minimum Cost: 15

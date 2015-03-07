@@ -1,0 +1,52 @@
+Enter a digit for file name (1 for node1) or enter file name: node4
+
+Processing node4.eblif . . . 
+
+Generating Prime Implicants . . . 
+
+C(k): ["00x0", "100x", "x010", "1111", "00x1", "011x"]
+C(k+1): ["x000", "00xx", "0x10", "10x0", "x001", "x111", "0x11", "100x", "x010", "011x"]
+C(k) == C(k+1)?: false
+- - - - - - - - - - - - - - - - -
+C(k): ["x000", "00xx", "0x10", "10x0", "x001", "x111", "0x11", "100x", "x010", "011x"]
+C(k+1): ["x00x", "x0x0", "0x1x", "00xx", "x111"]
+C(k) == C(k+1)?: false
+- - - - - - - - - - - - - - - - -
+C(k): ["x00x", "x0x0", "0x1x", "00xx", "x111"]
+C(k+1): ["00xx", "x00x", "x0x0", "0x1x", "x111"]
+C(k) == C(k+1)?: true
+- - - - - - - - - - - - - - - - -
+
+Initial Cover: ["00x0", "100x", "x010", "1111"]
+Prime Implicants: ["00xx", "x00x", "x0x0", "0x1x", "x111"]
+Essential PI List: ["x00x", "x0x0", "x111"]
+Non-essential PI List: ["00xx", "0x1x"]
+
+Checking if the essential prime implicants fully cover the function . . . 
+
+Minterms fully covered: ["00x0", "100x", "x010", "1111"]
+
+Minterms not fully covered: []
+
+Essential PIs fully cover the function ! So, the Essential PI List would be the minimum cost cover.
+However, the program would continue finding other possible covers (which won't be the minimum cost cover(s) )...
+
+Number of non-essential PIs: 2
+
+Finding Possible Covers using the Branching Algorithm . . . . . . . . . . . . 
+
+Number of potential covers: 4
+
+Finding the Minimum Cost Cover(s) . . . 
+
+cost of cover ["x00x", "x0x0", "x111"]: 14
+cost of cover ["00xx", "x00x", "x0x0", "x111"]: 18
+cost of cover ["0x1x", "x00x", "x0x0", "x111"]: 18
+cost of cover ["00xx", "0x1x", "x00x", "x0x0", "x111"]: 22
+
+Minimum Cost Cover(s): 
+
+["x00x", "x0x0", "x111"]
+
+Number of Minimum Cost Covers: 1
+Minimum Cost: 14
